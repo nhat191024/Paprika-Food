@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -15,6 +16,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 use Spatie\Translatable\Attributes\Translatable;
 use Spatie\Translatable\HasTranslations;
+
+use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
 
 /**
  * @property int $id
@@ -57,7 +60,7 @@ use Spatie\Translatable\HasTranslations;
 #[Translatable('name', 'description')]
 class Product extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasTranslations;
+    use InteractsWithMedia, InteractsWithMediaFiles, HasTranslations;
 
     protected function casts(): array
     {
@@ -76,6 +79,11 @@ class Product extends Model implements HasMedia
     public function comboGroups(): HasMany
     {
         return $this->hasMany(ComboGroup::class);
+    }
+
+    public function thumbnail(): MorphToMany
+    {
+        return $this->mediaFiles('thumbnail');
     }
 
     /*
