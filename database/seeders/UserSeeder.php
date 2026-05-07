@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
-        $admin->assignRole(Role::Admin->value);
+        $admin->assignRole(Role::ADMIN->value);
 
         $staff = Staff::firstOrCreate(
             ['email' => 'staff@paprika.com'],
@@ -31,10 +31,10 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
-        $staff->assignRole(Role::Staff->value);
+        $staff->assignRole(Role::STAFF->value);
 
         Customer::factory(10)->create()->each(function (Customer $customer) {
-            $customer->assignRole(Role::Customer->value);
+            $customer->assignRole(Role::CUSTOMER->value);
         });
     }
 }
