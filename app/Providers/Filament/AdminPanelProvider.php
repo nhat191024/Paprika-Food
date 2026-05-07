@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\App;
 use Octopy\Filament\Palette\PaletteSwitcherPlugin;
 use Slimani\MediaManager\MediaManagerPlugin;
 use SpyApp\ThemeEdinburgh\ThemeEdinburghPlugin;
+use AzGasim\FilamentUnsavedChangesModal\FilamentUnsavedChangesModalPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -60,7 +61,10 @@ class AdminPanelProvider extends PanelProvider
                 PaletteSwitcherPlugin::make(),
                 MediaManagerPlugin::make(),
                 ThemeEdinburghPlugin::make(),
+                FilamentUnsavedChangesModalPlugin::make(),
             ])
+
+            ->unsavedChangesAlerts()
 
             ->bootUsing(function () {
                 App::setLocale('vi');
