@@ -19,6 +19,12 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
+
+use App\Enums\Role;
+
 /**
  * @property int $id
  * @property string $name
@@ -66,7 +72,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable implements HasMedia, FilamentUser, HasAvatar
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles, InteractsWithMedia;
@@ -94,6 +100,31 @@ class User extends Authenticatable implements HasMedia
             ->take(2)
             ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    /**
+     * Determine if the user can access the Filament admin panel.
+     * @param \Filament\Panel $panel
+     * @return bool
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin' && $this->hasAnyRole([
+            Role::ADMIN,
+            Role::STAFF
+        ])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get the URL of the user's avatar for Filament.
+     * @return string|null
+     */
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->getFirstMediaUrl('avatar', 'avatar_webp') ?: $this->avatar_url;
     }
 
     /*
