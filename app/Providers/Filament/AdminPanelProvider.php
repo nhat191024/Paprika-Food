@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\App;
 
 use Octopy\Filament\Palette\PaletteSwitcherPlugin;
 use Slimani\MediaManager\MediaManagerPlugin;
+use SpyApp\ThemeEdinburgh\ThemeEdinburghPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -58,6 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 PaletteSwitcherPlugin::make(),
                 MediaManagerPlugin::make(),
+                ThemeEdinburghPlugin::make(),
             ])
 
             ->bootUsing(function () {
