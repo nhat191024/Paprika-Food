@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f138e679e3918d428888cb879ab6da5",
+    "content-hash": "b1a0adc781de02b481c2e2b643ef5ffc",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -4215,6 +4215,54 @@
                 }
             ],
             "time": "2026-02-16T23:10:27+00:00"
+        },
+        {
+            "name": "octopyid/filament-palette",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OctopyID/FilamentPalette.git",
+                "reference": "84552c2a2b22e109bf8c644917a7f9fcb7e62ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OctopyID/FilamentPalette/zipball/84552c2a2b22e109bf8c644917a7f9fcb7e62ec5",
+                "reference": "84552c2a2b22e109bf8c644917a7f9fcb7e62ec5",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.3|^4|^5",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Octopy\\Filament\\Palette\\Providers\\PaletteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Octopy\\Filament\\Palette\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Supian M",
+                    "email": "supianidz@octopy.dev"
+                }
+            ],
+            "description": "Easily switch and customize the UI color palette for your FilamentPHP",
+            "support": {
+                "issues": "https://github.com/OctopyID/FilamentPalette/issues",
+                "source": "https://github.com/OctopyID/FilamentPalette/tree/v1.0.3"
+            },
+            "time": "2025-11-11T13:48:31+00:00"
         },
         {
             "name": "openspout/openspout",
