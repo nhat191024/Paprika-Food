@@ -22,6 +22,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\App;
 
 use Octopy\Filament\Palette\PaletteSwitcherPlugin;
 use Slimani\MediaManager\MediaManagerPlugin;
@@ -58,6 +59,10 @@ class AdminPanelProvider extends PanelProvider
                 PaletteSwitcherPlugin::make(),
                 MediaManagerPlugin::make(),
             ])
+
+            ->bootUsing(function () {
+                App::setLocale('vi');
+            })
 
             ->middleware([
                 EncryptCookies::class,
