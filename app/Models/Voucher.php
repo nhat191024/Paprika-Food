@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\VoucherStatus;
+use App\States\Voucher\VoucherState;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+
+use Spatie\ModelStates\HasStates;
 
 /**
  * @property int $id
@@ -18,11 +20,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\CarbonImmutable $end_date
  * @property int|null $usage_limit
  * @property int $used_count
- * @property VoucherStatus $status
+ * @property VoucherState $status
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher orWhereNotState(string $column, $states)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher orWhereState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereCreatedAt($value)
@@ -32,7 +36,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereMaxDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereMinOrderAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereNotState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereUsageLimit($value)
@@ -42,6 +48,8 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable(['code', 'discount_type', 'discount_value', 'min_order_amount', 'max_discount', 'start_date', 'end_date', 'usage_limit', 'used_count', 'status'])]
 class Voucher extends Model
 {
+    use HasStates;
+
     protected function casts(): array
     {
         return [
@@ -50,7 +58,7 @@ class Voucher extends Model
             'max_discount' => 'decimal:2',
             'start_date' => 'date',
             'end_date' => 'date',
-            'status' => VoucherStatus::class,
+            'status' => VoucherState::class,
         ];
     }
 }

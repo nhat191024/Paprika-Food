@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->unsignedInteger('usage_limit')->nullable();
             $table->unsignedInteger('used_count')->default(0);
-            $table->string('status')->default(VoucherStatus::ACTIVE);
+            $table->string('status');
             $table->timestamps();
         });
     }
