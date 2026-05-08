@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ProductStatus;
+use App\States\Product\ProductState;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +19,8 @@ use Spatie\Translatable\HasTranslations;
 
 use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
 
+use Spatie\ModelStates\HasStates;
+
 /**
  * @property int $id
  * @property int $category_id
@@ -27,18 +29,24 @@ use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
  * @property array<array-key, mixed>|null $description
  * @property numeric $price
  * @property bool $is_combo
- * @property ProductStatus $status
+ * @property ProductState $status
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \App\Models\Category $category
+ * @property-read \App\Models\Category|null $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ComboGroup> $comboGroups
  * @property-read int|null $combo_groups_count
  * @property-read array $translatable_columns_from
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Slimani\MediaManager\Models\MediaAttachment> $mediaAttachments
+ * @property-read int|null $media_attachments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Slimani\MediaManager\Models\File> $thumbnail
+ * @property-read int|null $thumbnail_count
  * @property-read mixed $translations
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product orWhereNotState(string $column, $states)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product orWhereState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCreatedAt($value)
@@ -50,8 +58,10 @@ use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereLocale(string $column, string $locale)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereLocales(string $column, array $locales)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereNotState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -60,14 +70,14 @@ use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
 #[Translatable('name', 'description')]
 class Product extends Model implements HasMedia
 {
-    use InteractsWithMedia, InteractsWithMediaFiles, HasTranslations;
+    use InteractsWithMedia, InteractsWithMediaFiles, HasTranslations, HasStates;
 
     protected function casts(): array
     {
         return [
             'price' => 'decimal:2',
             'is_combo' => 'boolean',
-            'status' => ProductStatus::class,
+            'status' => ProductState::class,
         ];
     }
 

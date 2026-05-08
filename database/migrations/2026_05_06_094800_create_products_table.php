@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('description')->nullable();
             $table->decimal('price', 12, 2);
             $table->boolean('is_combo')->default(false);
-            $table->string('status')->default(ProductStatus::ACTIVE);
+            $table->string('status');
             $table->timestamps();
         });
     }

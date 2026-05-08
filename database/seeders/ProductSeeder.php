@@ -43,7 +43,6 @@ class ProductSeeder extends Seeder
                     'description' => $data['desc'],
                     'price' => $data['price'],
                     'is_combo' => false,
-                    'status' => ProductStatus::ACTIVE,
                 ]
             );
 
@@ -61,7 +60,6 @@ class ProductSeeder extends Seeder
                 'description' => ['en' => 'Chicken combo with drink and size choice.', 'el' => 'Κόμπο κοτόπουλο με ποτό και επιλογή μεγέθους.'],
                 'price' => 80000,
                 'is_combo' => true,
-                'status' => ProductStatus::ACTIVE,
             ]
         );
 
