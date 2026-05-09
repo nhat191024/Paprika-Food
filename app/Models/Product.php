@@ -3,23 +3,23 @@
 namespace App\Models;
 
 use App\States\Product\ProductState;
-
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-
+use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
+use Slimani\MediaManager\Models\File;
+use Slimani\MediaManager\Models\MediaAttachment;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
+use Spatie\ModelStates\HasStates;
 use Spatie\Translatable\Attributes\Translatable;
 use Spatie\Translatable\HasTranslations;
-
-use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
-
-use Spatie\ModelStates\HasStates;
 
 /**
  * @property int $id
@@ -30,19 +30,21 @@ use Spatie\ModelStates\HasStates;
  * @property numeric $price
  * @property bool $is_combo
  * @property ProductState $status
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read \App\Models\Category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ComboGroup> $comboGroups
+ * @property-read Collection<int, \App\Models\ComboGroup> $comboGroups
  * @property-read int|null $combo_groups_count
  * @property-read array $translatable_columns_from
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
+ * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Slimani\MediaManager\Models\MediaAttachment> $mediaAttachments
+ * @property-read Collection<int, MediaAttachment> $mediaAttachments
  * @property-read int|null $media_attachments_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Slimani\MediaManager\Models\File> $thumbnail
+ * @property-read Collection<int, File> $thumbnail
  * @property-read int|null $thumbnail_count
  * @property-read mixed $translations
+ * @property-read Collection<int, \App\Models\ProductVariant> $variants
+ * @property-read int|null $variants_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product orWhereNotState(string $column, $states)
@@ -70,7 +72,7 @@ use Spatie\ModelStates\HasStates;
 #[Translatable('name', 'description')]
 class Product extends Model implements HasMedia
 {
-    use InteractsWithMedia, InteractsWithMediaFiles, HasTranslations, HasStates;
+    use HasStates, HasTranslations, InteractsWithMedia, InteractsWithMediaFiles;
 
     protected function casts(): array
     {
@@ -91,6 +93,11 @@ class Product extends Model implements HasMedia
         return $this->hasMany(ComboGroup::class);
     }
 
+    public function variants(): HasMany
+    {
+        return $this->hasMany(ProductVariant::class)->orderBy('sort_order');
+    }
+
     public function thumbnail(): MorphToMany
     {
         return $this->mediaFiles('thumbnail');
@@ -108,8 +115,6 @@ class Product extends Model implements HasMedia
 
     /**
      * Summary of registerMediaConversions
-     * @param Media|null $media
-     * @return void
      */
     public function registerMediaConversions(?Media $media = null): void
     {
