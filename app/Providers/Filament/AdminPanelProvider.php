@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Enums\FilamentNavigationGroup;
+
+use Filament\Navigation\NavigationGroup;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
@@ -45,6 +48,13 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Red,
             ])
             ->maxContentWidth(Width::Full)
+            ->navigationGroups([
+                'SYSTEM' => NavigationGroup::make(fn () => FilamentNavigationGroup::SYSTEM->getLabel()),
+                'CONTENT' => NavigationGroup::make(fn () => FilamentNavigationGroup::CONTENT->getLabel()),
+                'SETTINGS' => NavigationGroup::make(fn () => FilamentNavigationGroup::SETTINGS->getLabel()),
+            ])
+
+            ->topbar(false)
 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
 
