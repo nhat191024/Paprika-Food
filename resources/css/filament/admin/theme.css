@@ -7,3 +7,5 @@
 
 @source '../../../../vendor/octopyid/filament-palette/resources';
 @source '../../../../vendor/slimani/filament-media-manager/resources/**/*';
+
+@source '../../../../vendor/ralphjsmit/laravel-filament-upload/resources/**/*.blade.php';
