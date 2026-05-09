@@ -28,6 +28,7 @@ use Octopy\Filament\Palette\PaletteSwitcherPlugin;
 use Slimani\MediaManager\MediaManagerPlugin;
 use SpyApp\ThemeEdinburgh\ThemeEdinburghPlugin;
 use AzGasim\FilamentUnsavedChangesModal\FilamentUnsavedChangesModalPlugin;
+use RalphJSmit\Filament\Upload\FilamentUpload;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -62,6 +63,7 @@ class AdminPanelProvider extends PanelProvider
                 MediaManagerPlugin::make(),
                 ThemeEdinburghPlugin::make(),
                 FilamentUnsavedChangesModalPlugin::make(),
+                FilamentUpload::make(),
             ])
 
             ->unsavedChangesAlerts()
