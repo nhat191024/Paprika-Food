@@ -11,6 +11,7 @@ return [
             'slug' => 'Slug',
             'parent' => 'Parent',
             'order' => 'Order',
+            'children_count' => 'Subcategories',
             'products_count' => 'Products',
             'created_at' => 'Created at',
         ],
@@ -29,6 +30,11 @@ return [
         ],
         'filters' => [
             'trashed' => 'Deleted records',
+        ],
+        'relation' => [
+            'children' => [
+                'title' => 'Subcategories',
+            ],
         ],
     ],
 

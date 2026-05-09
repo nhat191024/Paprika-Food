@@ -11,6 +11,7 @@ return [
             'slug' => 'Slug',
             'parent' => 'Danh mục cha',
             'order' => 'Thứ tự',
+            'children_count' => 'Danh mục con',
             'products_count' => 'Số sản phẩm',
             'created_at' => 'Ngày tạo',
         ],
@@ -29,6 +30,11 @@ return [
         ],
         'filters' => [
             'trashed' => 'Đã xóa',
+        ],
+        'relation' => [
+            'children' => [
+                'title' => 'Danh mục con',
+            ],
         ],
     ],
 
