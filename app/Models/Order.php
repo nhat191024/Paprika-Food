@@ -23,6 +23,8 @@ use Spatie\ModelStates\HasStates;
  * @property numeric $total_amount
  * @property numeric $discount_amount
  * @property numeric $final_amount
+ * @property int|null $voucher_id
+ * @property string|null $voucher_code
  * @property OrderState $status
  * @property PaymentMethods $payment_method
  * @property OrderType $order_type
@@ -32,8 +34,6 @@ use Spatie\ModelStates\HasStates;
  * @property string|null $delivery_address_detail
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property int|null $voucher_id
- * @property string|null $voucher_code
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\CustomerAddress|null $customerAddress
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItem> $items
