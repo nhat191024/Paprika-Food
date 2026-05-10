@@ -6,10 +6,13 @@ use App\Enums\OrderType;
 use App\Enums\PaymentMethods;
 use App\States\Order\OrderState;
 
+use Database\Factories\OrderFactory;
+
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Spatie\ModelStates\HasStates;
 
@@ -33,6 +36,7 @@ use Spatie\ModelStates\HasStates;
  * @property-read \App\Models\CustomerAddress|null $customerAddress
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItem> $items
  * @property-read int|null $items_count
+ * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order orWhereNotState(string $column, $states)
@@ -60,7 +64,8 @@ use Spatie\ModelStates\HasStates;
 #[Fillable(['user_id', 'order_number', 'total_amount', 'discount_amount', 'final_amount', 'status', 'payment_method', 'order_type', 'customer_address_id', 'delivery_recipient_name', 'delivery_phone', 'delivery_address_detail'])]
 class Order extends Model
 {
-    use HasStates;
+    /** @use HasFactory<OrderFactory> */
+    use HasFactory, HasStates;
 
     protected function casts(): array
     {
