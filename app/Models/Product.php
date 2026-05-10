@@ -75,9 +75,9 @@ use Spatie\Translatable\HasTranslations;
  */
 #[Fillable(['category_id', 'slug', 'name', 'description', 'price', 'is_combo', 'status'])]
 #[Translatable('name', 'description')]
-class Product extends Model implements HasMedia
+class Product extends Model
 {
-    use HasStates, HasTranslations, InteractsWithMedia, InteractsWithMediaFiles;
+    use HasStates, HasTranslations, InteractsWithMediaFiles;
 
     protected function casts(): array
     {
@@ -106,29 +106,5 @@ class Product extends Model implements HasMedia
     public function thumbnail(): MorphToMany
     {
         return $this->mediaFiles('thumbnail');
-    }
-
-    /*
-    * Register the media collections for the model.
-    */
-    public function registerMediaCollections(): void
-    {
-        $this
-            ->addMediaCollection('thumbnail')
-            ->useDisk('public');
-    }
-
-    /**
-     * Summary of registerMediaConversions
-     */
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this->addMediaConversion('thumbnail_webp')
-            ->width(400)
-            ->height(400)
-            ->format('webp')
-            ->performOnCollections('thumbnail')
-            ->optimize()
-            ->queued();
     }
 }
