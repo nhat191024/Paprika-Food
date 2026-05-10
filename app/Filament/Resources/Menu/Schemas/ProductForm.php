@@ -5,19 +5,24 @@ namespace App\Filament\Resources\Menu\Schemas;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductVariant;
+
 use App\States\Product\Active;
 use App\States\Product\Inactive;
 use App\States\Product\OutOfStock;
+
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+
+use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Schema;
+
 use Illuminate\Support\Str;
+
 use RalphJSmit\Filament\Upload\Filament\Forms\Components\AdvancedFileUpload;
 
 class ProductForm
