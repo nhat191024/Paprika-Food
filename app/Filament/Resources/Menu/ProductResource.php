@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Menu;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Enums\FilamentNavigationGroup;
 use App\Filament\Resources\Menu\Pages\CreateProduct;
 use App\Filament\Resources\Menu\Pages\EditProduct;
@@ -54,6 +55,12 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with('thumbnail', 'category');
     }
 
     public static function getPages(): array
