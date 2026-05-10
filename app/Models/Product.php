@@ -16,11 +16,6 @@ use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
 use Slimani\MediaManager\Models\File;
 use Slimani\MediaManager\Models\MediaAttachment;
 
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
 use Spatie\ModelStates\HasStates;
 
 use Spatie\Translatable\Attributes\Translatable;
@@ -41,8 +36,6 @@ use Spatie\Translatable\HasTranslations;
  * @property-read Collection<int, \App\Models\ComboGroup> $comboGroups
  * @property-read int|null $combo_groups_count
  * @property-read array $translatable_columns_from
- * @property-read MediaCollection<int, Media> $media
- * @property-read int|null $media_count
  * @property-read Collection<int, MediaAttachment> $mediaAttachments
  * @property-read int|null $media_attachments_count
  * @property-read Collection<int, File> $thumbnail
