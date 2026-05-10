@@ -13,6 +13,9 @@ use Illuminate\Validation\Rules\Password;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationGroup;
 
+use Slimani\MediaManager\Models\File;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -33,6 +36,22 @@ class AppServiceProvider extends ServiceProvider
         Filament::registerNavigationGroups([
             'system'   => NavigationGroup::make(fn() => FilamentNavigationGroup::SYSTEM->getLabel()),
         ]);
+
+        File::registerMediaConversionsUsing(function (File $file, ?Media $media = null) {
+            $file->addMediaConversion('thumb')
+                ->width(150)
+                ->height(150)
+                ->format('webp')
+                ->optimize()
+                ->queued();
+
+            $file->addMediaConversion('square')
+                ->width(500)
+                ->height(500)
+                ->format('webp')
+                ->optimize()
+                ->queued();
+        });
     }
 
     /**
