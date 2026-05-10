@@ -25,7 +25,7 @@ class UserResource extends Resource
     protected static ?string $model = Customer::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
-    protected static string|UnitEnum|null $navigationGroup = FilamentNavigationGroup::SYSTEM;
+    protected static string|UnitEnum|null $navigationGroup = 'system';
 
     protected static ?int $navigationSort = 1;
 
