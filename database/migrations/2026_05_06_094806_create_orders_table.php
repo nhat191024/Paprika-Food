@@ -20,6 +20,8 @@ return new class extends Migration
             $table->decimal('total_amount', 12, 2);
             $table->decimal('discount_amount', 12, 2)->default(0);
             $table->decimal('final_amount', 12, 2);
+            $table->foreignId('voucher_id')->nullable()->constrained('vouchers')->nullOnDelete();
+            $table->string('voucher_code')->nullable();
             $table->string('status');
             $table->string('payment_method');
             $table->string('order_type')->default(OrderType::DINE_IN);

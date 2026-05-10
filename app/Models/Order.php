@@ -32,10 +32,13 @@ use Spatie\ModelStates\HasStates;
  * @property string|null $delivery_address_detail
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property int|null $voucher_id
+ * @property string|null $voucher_code
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\CustomerAddress|null $customerAddress
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItem> $items
  * @property-read int|null $items_count
+ * @property-read \App\Models\Voucher|null $voucher
  * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
@@ -59,9 +62,11 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotalAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereVoucherCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereVoucherId($value)
  * @mixin \Eloquent
  */
-#[Fillable(['user_id', 'order_number', 'total_amount', 'discount_amount', 'final_amount', 'status', 'payment_method', 'order_type', 'customer_address_id', 'delivery_recipient_name', 'delivery_phone', 'delivery_address_detail'])]
+#[Fillable(['user_id', 'order_number', 'total_amount', 'discount_amount', 'final_amount', 'voucher_id', 'voucher_code', 'status', 'payment_method', 'order_type', 'customer_address_id', 'delivery_recipient_name', 'delivery_phone', 'delivery_address_detail'])]
 class Order extends Model
 {
     /** @use HasFactory<OrderFactory> */
@@ -82,6 +87,11 @@ class Order extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class, 'user_id');
+    }
+
+    public function voucher(): BelongsTo
+    {
+        return $this->belongsTo(Voucher::class);
     }
 
     public function customerAddress(): BelongsTo
