@@ -9,14 +9,12 @@ use App\States\Product\OutOfStock;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 
 use Filament\Forms\Components\Select;
 
 use Filament\Tables\Table;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -24,17 +22,19 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
+use Slimani\MediaManager\Tables\Columns\MediaColumn;
+
 class ProductsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                ImageColumn::make('thumbnail')
-                    ->label(__('admin/menu.product.table.thumbnail'))
-                    ->state(fn($record) => $record->getFirstMediaUrl('thumbnail', 'thumbnail_webp') ?: $record->getFirstMediaUrl('thumbnail'))
-                    ->square()
-                    ->defaultImageUrl(asset('images/placeholder.png')),
+                MediaColumn::make('thumbnail')
+                    ->circular()
+                    ->imageWidth(80)
+                    ->imageHeight(80)
+                    ->defaultImageUrl(asset('images/demo.jpg')),
 
                 TextColumn::make('name')
                     ->label(__('admin/menu.product.table.name'))
