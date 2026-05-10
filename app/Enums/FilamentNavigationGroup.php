@@ -7,6 +7,7 @@ use Filament\Support\Contracts\HasLabel;
 enum FilamentNavigationGroup implements HasLabel
 {
     case SYSTEM;
+    case ORDERS;
     case MENU;
     case CONTENT;
     case SETTINGS;
@@ -15,6 +16,7 @@ enum FilamentNavigationGroup implements HasLabel
     {
         return match ($this) {
             self::SYSTEM => __('admin/sidebar.navigation.groups.system'),
+            self::ORDERS => __('admin/sidebar.navigation.groups.orders'),
             self::MENU => __('admin/sidebar.navigation.groups.menu'),
             self::CONTENT => __('admin/sidebar.navigation.groups.content'),
             self::SETTINGS => __('admin/sidebar.navigation.groups.settings'),

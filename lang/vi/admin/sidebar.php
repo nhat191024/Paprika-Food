@@ -4,6 +4,7 @@ return [
     'navigation' => [
         'groups' => [
             'system' => 'Hệ thống',
+            'orders' => 'Đơn hàng',
             'menu' => 'Thực đơn',
             'content' => 'Nội dung',
             'settings' => 'Cài đặt',
@@ -13,6 +14,7 @@ return [
             'customers_management' => 'Quản lý khách hàng',
             'categories' => 'Danh mục',
             'products' => 'Sản phẩm',
+            'orders' => 'Đơn hàng',
         ]
     ],
 ];

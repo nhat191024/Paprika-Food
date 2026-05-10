@@ -4,6 +4,7 @@ return [
     'navigation' => [
         'groups' => [
             'system' => 'System',
+            'orders' => 'Orders',
             'menu' => 'Menu',
             'content' => 'Content',
             'settings' => 'Settings',
@@ -13,6 +14,7 @@ return [
             'customers_management' => 'Customers Management',
             'categories' => 'Categories',
             'products' => 'Products',
+            'orders' => 'Orders',
         ]
     ],
 ];
