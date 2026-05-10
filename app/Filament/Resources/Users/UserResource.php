@@ -2,6 +2,11 @@
 
 namespace App\Filament\Resources\Users;
 
+use BackedEnum;
+use UnitEnum;
+
+use App\Models\Customer;
+
 use App\Enums\Role;
 use App\Enums\FilamentNavigationGroup;
 
@@ -12,9 +17,7 @@ use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Tables\UsersTable;
-use App\Models\Customer;
-use BackedEnum;
-use UnitEnum;
+
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
