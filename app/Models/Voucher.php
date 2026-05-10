@@ -6,6 +6,7 @@ use App\States\Voucher\VoucherState;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Spatie\ModelStates\HasStates;
 
@@ -18,11 +19,14 @@ use Spatie\ModelStates\HasStates;
  * @property numeric|null $max_discount
  * @property \Carbon\CarbonImmutable $start_date
  * @property \Carbon\CarbonImmutable $end_date
+ * @property bool $is_unlimited
  * @property int|null $usage_limit
  * @property int $used_count
  * @property VoucherState $status
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher orWhereNotState(string $column, $states)
@@ -34,6 +38,7 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereDiscountValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereIsUnlimited($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereMaxDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereMinOrderAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereNotState(string $column, $states)
@@ -45,7 +50,7 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Voucher whereUsedCount($value)
  * @mixin \Eloquent
  */
-#[Fillable(['code', 'discount_type', 'discount_value', 'min_order_amount', 'max_discount', 'start_date', 'end_date', 'usage_limit', 'used_count', 'status'])]
+#[Fillable(['code', 'discount_type', 'discount_value', 'min_order_amount', 'max_discount', 'start_date', 'end_date', 'usage_limit', 'is_unlimited', 'used_count', 'status'])]
 class Voucher extends Model
 {
     use HasStates;
@@ -58,7 +63,13 @@ class Voucher extends Model
             'max_discount' => 'decimal:2',
             'start_date' => 'date',
             'end_date' => 'date',
+            'is_unlimited' => 'boolean',
             'status' => VoucherState::class,
         ];
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

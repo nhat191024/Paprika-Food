@@ -25,8 +25,17 @@ class VoucherFactory extends Factory
             'max_discount' => fake()->optional()->randomElement([50000, 100000]),
             'start_date' => now(),
             'end_date' => now()->addDays(30),
+            'is_unlimited' => false,
             'usage_limit' => fake()->optional()->numberBetween(10, 200),
             'used_count' => 0,
         ];
+    }
+
+    public function unlimited(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_unlimited' => true,
+            'usage_limit' => null,
+        ]);
     }
 }
