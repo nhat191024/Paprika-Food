@@ -49,9 +49,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->maxContentWidth(Width::Full)
             ->navigationGroups([
-                'SYSTEM' => NavigationGroup::make(fn () => FilamentNavigationGroup::SYSTEM->getLabel()),
-                'CONTENT' => NavigationGroup::make(fn () => FilamentNavigationGroup::CONTENT->getLabel()),
-                'SETTINGS' => NavigationGroup::make(fn () => FilamentNavigationGroup::SETTINGS->getLabel()),
+                'SYSTEM' => NavigationGroup::make(fn() => FilamentNavigationGroup::SYSTEM->getLabel()),
+                'CONTENT' => NavigationGroup::make(fn() => FilamentNavigationGroup::CONTENT->getLabel()),
+                'SETTINGS' => NavigationGroup::make(fn() => FilamentNavigationGroup::SETTINGS->getLabel()),
             ])
 
             ->topbar(false)
@@ -71,10 +71,11 @@ class AdminPanelProvider extends PanelProvider
 
             ->plugins([
                 PaletteSwitcherPlugin::make(),
-                MediaManagerPlugin::make(),
                 ThemeEdinburghPlugin::make(),
                 FilamentUnsavedChangesModalPlugin::make(),
                 FilamentUpload::make(),
+                MediaManagerPlugin::make()
+                    ->navigationGroup('system'),
             ])
 
             ->unsavedChangesAlerts()
