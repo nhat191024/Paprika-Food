@@ -16,6 +16,7 @@ return [
             'products' => 'Products',
             'orders' => 'Orders',
             'vouchers' => 'Vouchers',
+            'banners' => 'Banners',
         ]
     ],
 ];
