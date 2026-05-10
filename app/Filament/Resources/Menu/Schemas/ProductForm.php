@@ -25,6 +25,8 @@ use Illuminate\Support\Str;
 
 use RalphJSmit\Filament\Upload\Filament\Forms\Components\AdvancedFileUpload;
 
+use Slimani\MediaManager\Form\MediaPicker;
+
 class ProductForm
 {
     public static function configure(Schema $schema): Schema
@@ -256,12 +258,19 @@ class ProductForm
 
                         Section::make(__('admin/menu.product.form.sections.thumbnail'))
                             ->schema([
-                                AdvancedFileUpload::make('thumbnail')
+                                // AdvancedFileUpload::make('thumbnail')
+                                //     ->label(__('admin/menu.product.form.fields.thumbnail'))
+                                //     ->image()
+                                //     ->editable()
+                                //     ->spatieMediaLibrary(collection: 'thumbnail')
+                                //     ->columnSpanFull(),
+
+                                MediaPicker::make('thumbnail')
+                                    ->relationship('thumbnail')
                                     ->label(__('admin/menu.product.form.fields.thumbnail'))
-                                    ->image()
-                                    ->editable()
-                                    ->spatieMediaLibrary(collection: 'thumbnail')
-                                    ->columnSpanFull(),
+                                    ->imageEditor()
+                                    ->required(),
+
                             ]),
                     ]),
             ]);
