@@ -94,8 +94,8 @@ class ProductSeeder extends Seeder
         if ($setGa->comboGroups()->doesntExist()) {
             $pepsi = Product::query()->where('slug', 'pepsi-can')->first();
             $upSeven = Product::query()->where('slug', '7up-can')->first();
-            $sizeM = ProductVariant::query()->whereJsonContains('name->en', 'Size M')->first();
-            $sizeL = ProductVariant::query()->whereJsonContains('name->en', 'Size L')->first();
+            $sizeM = ProductVariant::query()->whereJsonContains('name->en', 'Size M', 'and', false)->first();
+            $sizeL = ProductVariant::query()->whereJsonContains('name->en', 'Size L', 'and', false)->first();
 
             $drinkGroup = ComboGroup::create([
                 'product_id' => $setGa->id,
