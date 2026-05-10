@@ -15,6 +15,7 @@ return [
             'categories' => 'Danh mục',
             'products' => 'Sản phẩm',
             'orders' => 'Đơn hàng',
+            'vouchers' => 'Mã giảm giá',
         ]
     ],
 ];
