@@ -48,7 +48,7 @@ class ProductsTable
 
                 TextColumn::make('price')
                     ->label(__('admin/menu.product.table.price'))
-                    ->money('VND')
+                    ->money('EUR', locale: 'el')
                     ->sortable(),
 
                 IconColumn::make('is_combo')

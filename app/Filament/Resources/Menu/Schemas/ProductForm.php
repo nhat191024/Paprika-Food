@@ -90,7 +90,7 @@ class ProductForm
                                                 TextInput::make('price_adjustment')
                                                     ->label(__('admin/menu.product.form.fields.price_adjustment'))
                                                     ->numeric()
-                                                    ->prefix('₫')
+                                                    ->prefix('€')
                                                     ->default(0),
 
                                                 TextInput::make('sort_order')
@@ -172,7 +172,7 @@ class ProductForm
                                                         TextInput::make('extra_price')
                                                             ->label(__('admin/menu.product.form.fields.extra_price'))
                                                             ->numeric()
-                                                            ->prefix('₫')
+                                                            ->prefix('€')
                                                             ->default(0)
                                                             ->minValue(0),
 
@@ -229,7 +229,7 @@ class ProductForm
                                 TextInput::make('price')
                                     ->label(__('admin/menu.product.form.fields.price'))
                                     ->numeric()
-                                    ->prefix('₫')
+                                    ->prefix('€')
                                     ->minValue(0)
                                     ->required(),
 
