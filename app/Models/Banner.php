@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Slimani\MediaManager\Concerns\InteractsWithMediaFiles;
+use Slimani\MediaManager\Models\File;
+use Slimani\MediaManager\Models\MediaAttachment;
 
 /**
  * @property int $id
@@ -17,8 +18,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property bool $status
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
- * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, MediaAttachment> $mediaAttachments
+ * @property-read int|null $media_attachments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, File> $thumbnail
+ * @property-read int|null $thumbnail_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Banner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Banner newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Banner query()
@@ -32,9 +35,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @mixin \Eloquent
  */
 #[Fillable(['title', 'link', 'sort_order', 'status'])]
-class Banner extends Model implements HasMedia
+class Banner extends Model
 {
-    use InteractsWithMedia;
+    use InteractsWithMediaFiles;
 
     protected function casts(): array
     {
@@ -43,20 +46,8 @@ class Banner extends Model implements HasMedia
         ];
     }
 
-    public function registerMediaCollections(): void
+    public function thumbnail(): MorphToMany
     {
-        $this
-            ->addMediaCollection('image')
-            ->singleFile()
-            ->useDisk('public');
-    }
-
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this->addMediaConversion('webp')
-            ->format('webp')
-            ->optimize()
-            ->performOnCollections('image')
-            ->queued();
+        return $this->mediaFiles('thumbnail');
     }
 }
