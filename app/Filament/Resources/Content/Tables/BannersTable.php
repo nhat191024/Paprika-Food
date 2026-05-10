@@ -5,10 +5,13 @@ namespace App\Filament\Resources\Content\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+
+use Filament\Tables\Table;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
+use Slimani\MediaManager\Tables\Columns\MediaColumn;
 
 class BannersTable
 {
@@ -16,12 +19,19 @@ class BannersTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image')
+                // ImageColumn::make('image')
+                //     ->label(__('admin/banner.table.image'))
+                //     ->state(fn($record) => $record->getFirstMediaUrl('image', 'webp') ?: $record->getFirstMediaUrl('image'))
+                //     ->width(120)
+                //     ->height(60)
+                //     ->defaultImageUrl(asset('images/placeholder.png')),
+
+                MediaColumn::make('image')
                     ->label(__('admin/banner.table.image'))
-                    ->state(fn ($record) => $record->getFirstMediaUrl('image', 'webp') ?: $record->getFirstMediaUrl('image'))
-                    ->width(120)
-                    ->height(60)
-                    ->defaultImageUrl(asset('images/placeholder.png')),
+                    ->square()
+                    ->imageWidth(120)
+                    ->imageHeight(100)
+                    ->defaultImageUrl(asset('images/demo.jpg')),
 
                 TextColumn::make('title')
                     ->label(__('admin/banner.table.title'))

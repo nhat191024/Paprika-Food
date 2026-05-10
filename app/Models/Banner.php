@@ -46,8 +46,8 @@ class Banner extends Model
         ];
     }
 
-    public function thumbnail(): MorphToMany
+    public function image(): MorphToMany
     {
-        return $this->mediaFiles('thumbnail');
+        return $this->mediaFiles('image');
     }
 }

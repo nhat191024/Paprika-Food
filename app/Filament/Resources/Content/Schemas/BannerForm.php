@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\Content\Schemas;
 
+use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Schema;
+
 use RalphJSmit\Filament\Upload\Filament\Forms\Components\AdvancedFileUpload;
+
+use Slimani\MediaManager\Form\MediaPicker;
 
 class BannerForm
 {
@@ -43,12 +46,19 @@ class BannerForm
                 Section::make(__('admin/banner.form.sections.image'))
                     ->columnSpanFull()
                     ->schema([
-                        AdvancedFileUpload::make('image')
+                        // AdvancedFileUpload::make('image')
+                        //     ->label(__('admin/banner.form.fields.image'))
+                        //     ->image()
+                        //     ->editable()
+                        //     ->spatieMediaLibrary(collection: 'image')
+                        //     ->columnSpanFull(),
+
+                        MediaPicker::make('image')
+                            ->relationship('image')
                             ->label(__('admin/banner.form.fields.image'))
-                            ->image()
-                            ->editable()
-                            ->spatieMediaLibrary(collection: 'image')
-                            ->columnSpanFull(),
+                            ->imageEditor()
+                            ->required(),
+
                     ]),
             ]);
     }
