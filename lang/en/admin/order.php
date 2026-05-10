@@ -48,6 +48,7 @@ return [
             'delivery_address' => 'Delivery address',
             'total_amount' => 'Subtotal',
             'discount_amount' => 'Discount',
+            'voucher_code' => 'Voucher applied',
             'final_amount' => 'Total',
             'product_name' => 'Product',
             'quantity' => 'Quantity',

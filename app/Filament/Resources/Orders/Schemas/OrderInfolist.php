@@ -85,17 +85,25 @@ class OrderInfolist
 
                         Section::make(__('admin/order.infolist.sections.payment_info'))
                             ->schema([
+                                TextEntry::make('voucher_code')
+                                    ->label(__('admin/order.infolist.fields.voucher_code'))
+                                    ->placeholder('—')
+                                    ->badge()
+                                    ->color('success')
+                                    ->icon('heroicon-o-ticket')
+                                    ->columnSpanFull(),
+
                                 TextEntry::make('total_amount')
                                     ->label(__('admin/order.infolist.fields.total_amount'))
-                                    ->money('VND', locale: 'vi'),
+                                    ->money('EUR', locale: 'el'),
 
                                 TextEntry::make('discount_amount')
                                     ->label(__('admin/order.infolist.fields.discount_amount'))
-                                    ->money('VND', locale: 'vi'),
+                                    ->money('EUR', locale: 'el'),
 
                                 TextEntry::make('final_amount')
                                     ->label(__('admin/order.infolist.fields.final_amount'))
-                                    ->money('VND', locale: 'vi')
+                                    ->money('EUR', locale: 'el')
                                     ->weight('bold')
                                     ->size('lg'),
                             ]),
@@ -117,12 +125,12 @@ class OrderInfolist
 
                                 TextEntry::make('price')
                                     ->label(__('admin/order.infolist.fields.price'))
-                                    ->money('VND', locale: 'vi'),
+                                    ->money('EUR', locale: 'el'),
 
                                 TextEntry::make('subtotal')
                                     ->label(__('admin/order.infolist.fields.subtotal'))
                                     ->state(fn ($record) => $record->price * $record->quantity)
-                                    ->money('VND', locale: 'vi')
+                                    ->money('EUR', locale: 'el')
                                     ->weight('bold'),
 
                                 RepeatableEntry::make('selections')
@@ -136,7 +144,7 @@ class OrderInfolist
 
                                         TextEntry::make('extra_price')
                                             ->label(__('admin/order.infolist.fields.extra_price'))
-                                            ->money('VND', locale: 'vi'),
+                                            ->money('EUR', locale: 'el'),
                                     ])
                                     ->hidden(fn ($record) => $record->selections->isEmpty()),
                             ]),

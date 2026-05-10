@@ -48,6 +48,7 @@ return [
             'delivery_address' => 'Địa chỉ giao hàng',
             'total_amount' => 'Tổng giá trị',
             'discount_amount' => 'Giảm giá',
+            'voucher_code' => 'Voucher đã dùng',
             'final_amount' => 'Thành tiền',
             'product_name' => 'Sản phẩm',
             'quantity' => 'Số lượng',

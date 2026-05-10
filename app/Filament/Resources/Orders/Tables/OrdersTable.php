@@ -64,7 +64,7 @@ class OrdersTable
 
                 TextColumn::make('final_amount')
                     ->label(__('admin/order.table.final_amount'))
-                    ->money('VND', locale: 'vi')
+                    ->money('EUR', locale: 'el')
                     ->sortable(),
 
                 TextColumn::make('created_at')
