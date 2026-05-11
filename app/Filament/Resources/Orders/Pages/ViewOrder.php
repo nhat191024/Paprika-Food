@@ -18,6 +18,12 @@ class ViewOrder extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('back')
+                ->label(__('admin/order.actions.back'))
+                ->icon('heroicon-o-arrow-left')
+                ->color('gray')
+                ->url(url()->previous()),
+
             Action::make('confirm')
                 ->label(__('admin/order.actions.confirm'))
                 ->icon('heroicon-o-check-circle')
