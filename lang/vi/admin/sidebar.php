@@ -15,6 +15,7 @@ return [
             'categories' => 'Danh mục',
             'products' => 'Sản phẩm',
             'orders' => 'Đơn hàng',
+            'new_orders' => 'Đơn hàng mới',
             'vouchers' => 'Mã giảm giá',
             'banners' => 'Banners',
         ]

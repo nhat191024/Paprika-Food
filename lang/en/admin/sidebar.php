@@ -15,6 +15,7 @@ return [
             'categories' => 'Categories',
             'products' => 'Products',
             'orders' => 'Orders',
+            'new_orders' => 'New Orders',
             'vouchers' => 'Vouchers',
             'banners' => 'Banners',
         ]

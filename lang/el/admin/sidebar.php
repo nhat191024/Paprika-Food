@@ -10,6 +10,7 @@ return [
 
         'labels' => [
             'customers_management' => 'Διαχείριση πελατών',
+            'new_orders' => 'Νέες Παραγγελίες',
             'banners' => 'Banners',
         ]
     ],

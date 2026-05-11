@@ -59,6 +59,11 @@ return [
         ],
     ],
 
+    'incoming' => [
+        'no_pending' => 'Không có đơn mới nào.',
+        'no_processing' => 'Không có đơn nào đang xử lý.',
+    ],
+
     'actions' => [
         'confirm' => 'Xác nhận đơn',
         'ready' => 'Sẵn sàng giao',
@@ -66,6 +71,8 @@ return [
         'cancel' => 'Hủy đơn',
         'cancel_confirm' => 'Bạn có chắc chắn muốn hủy đơn hàng này?',
         'cancel_confirm_button' => 'Hủy đơn',
+        'view' => 'Xem',
+        'back' => 'Quay lại',
     ],
 
     'status' => [

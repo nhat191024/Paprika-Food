@@ -6,6 +6,10 @@ return [
         'plural' => 'Orders',
     ],
 
+    'new_orders' => [
+        'plural' => 'New Orders',
+    ],
+
     'table' => [
         'order_number' => 'Order #',
         'customer' => 'Customer',
@@ -59,6 +63,11 @@ return [
         ],
     ],
 
+    'incoming' => [
+        'no_pending' => 'No new orders right now.',
+        'no_processing' => 'No orders in processing.',
+    ],
+
     'actions' => [
         'confirm' => 'Confirm Order',
         'ready' => 'Mark as Ready',
@@ -66,6 +75,8 @@ return [
         'cancel' => 'Cancel Order',
         'cancel_confirm' => 'Are you sure you want to cancel this order?',
         'cancel_confirm_button' => 'Cancel Order',
+        'view' => 'View',
+        'back' => 'Back',
     ],
 
     'status' => [
