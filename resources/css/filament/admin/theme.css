@@ -1,11 +1,13 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 @import '../../../../vendor/spykapps/theme-edinburgh/resources/css/edinburgh.css';
 @import '../../../../vendor/slimani/filament-media-manager/resources/css/media-manager.css';
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
-
 @source '../../../../vendor/octopyid/filament-palette/resources';
 @source '../../../../vendor/slimani/filament-media-manager/resources/**/*';
-
 @source '../../../../vendor/ralphjsmit/laravel-filament-upload/resources/**/*.blade.php';
+@source '../../../../vendor/wezlo/filament-grid-list/resources/views/**/*';
+
+@custom-variant dark (&:where(.dark, .dark *));

@@ -19,7 +19,8 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
@@ -31,6 +32,7 @@ use Slimani\MediaManager\MediaManagerPlugin;
 use SpyApp\ThemeEdinburgh\ThemeEdinburghPlugin;
 use AzGasim\FilamentUnsavedChangesModal\FilamentUnsavedChangesModalPlugin;
 use RalphJSmit\Filament\Upload\FilamentUpload;
+use Wezlo\FilamentGridList\FilamentGridListPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -72,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentUpload::make(),
                 MediaManagerPlugin::make()
                     ->navigationGroup('system'),
+                FilamentGridListPlugin::make(),
             ])
 
             ->unsavedChangesAlerts()

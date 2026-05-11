@@ -21,7 +21,8 @@
         "spatie/laravel-model-states": "^2.14",
         "spatie/laravel-permission": "^7.4",
         "spatie/laravel-translatable": "^6.14",
-        "spykapps/theme-edinburgh": "^1.0"
+        "spykapps/theme-edinburgh": "^1.0",
+        "wezlo/filament-grid-list": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",
