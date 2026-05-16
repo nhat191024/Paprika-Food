@@ -19,6 +19,15 @@
         </div>
         <flux:menu.separator />
         <flux:menu.radio.group>
+            <x-language-switcher />
+
+            <flux:menu.item x-data x-on:click="$flux.dark = ! $flux.dark" icon="moon" x-show="! $flux.dark">
+                {{ __('Dark Mode') }}
+            </flux:menu.item>
+            <flux:menu.item x-data x-on:click="$flux.dark = ! $flux.dark" icon="sun" x-show="$flux.dark">
+                {{ __('Light Mode') }}
+            </flux:menu.item>
+
             <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
                 {{ __('Settings') }}
             </flux:menu.item>
