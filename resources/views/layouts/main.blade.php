@@ -31,6 +31,13 @@
             <flux:spacer />
 
             <x-cart.nav-button />
+
+            <flux:dropdown>
+                <flux:button icon="language" variant="ghost" square />
+                <flux:menu class="min-w-[12rem]">
+                    <x-language-switcher flat />
+                </flux:menu>
+            </flux:dropdown>
             
             @auth
                 <x-desktop-user-menu />
