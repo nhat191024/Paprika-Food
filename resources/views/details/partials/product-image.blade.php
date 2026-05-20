@@ -1,0 +1,4 @@
+<div class="bg-white dark:bg-zinc-900 rounded-3xl p-12 flex items-center justify-center relative overflow-hidden shadow-sm border border-zinc-100 dark:border-zinc-800">
+    <div class="absolute inset-0 bg-gradient-to-tr from-zinc-100/50 dark:from-zinc-800/50 to-transparent pointer-events-none rounded-3xl"></div>
+    <img alt="{{ $product->name }}" class="w-full max-w-md h-auto object-contain relative z-10 transform hover:scale-105 transition-transform duration-500" src="{{ $product->thumbnail->first()?->getUrl() ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-iNqDilSiAfBf0fkzfTm4feayuE3IvEoLrCdgUOfxzh751rmm1Ysy8rEmpcPXMcuMp3SuHKpTfz9IN-GJ_dRbsab9SGNwTltGKrVgcR4EdFfxXc-v8Xce39Ce2s9aE9nLroNYOTxI_aY8xKCa58dHzpitGxO0kc17-JVh6y2sojlQDgRw4fO97LjpRcbL4ckGC8gVt4TYzlyyRAT0jovyw24X2eeC_7N50N1whT27X_owrU9eXeDCyqJX3EHb1iWDDqm2Fp2Kbzq_' }}">
+</div>

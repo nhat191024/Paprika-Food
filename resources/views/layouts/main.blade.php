@@ -3,8 +3,8 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <body class="flex flex-col min-h-screen bg-white dark:bg-zinc-800">
+        <flux:header container sticky class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
 
             <x-app-logo href="{{ route('home') }}" wire:navigate />
@@ -13,12 +13,15 @@
             
             <flux:navbar class="-mb-px max-lg:hidden">
                 <flux:navbar.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
+                    {{ __('client/navigation.home') }}
+                </flux:navbar.item>
+                <flux:navbar.item icon="squares-2x2" :href="route('menu')" :current="request()->routeIs('menu')" wire:navigate>
                     {{ __('client/navigation.menu') }}
                 </flux:navbar.item>
-                <flux:navbar.item icon="magnifying-glass" href="#" wire:navigate>
+                <!-- <flux:navbar.item icon="magnifying-glass" href="#" wire:navigate>
                     {{ __('client/navigation.explore') }}
-                </flux:navbar.item>
-                <flux:navbar.item icon="shopping-bag" href="#" wire:navigate>
+                </flux:navbar.item> -->
+                <flux:navbar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                     {{ __('client/navigation.orders') }}
                 </flux:navbar.item>
                 <flux:navbar.item icon="information-circle" href="#" wire:navigate>
@@ -26,6 +29,15 @@
                 </flux:navbar.item>
             </flux:navbar>
             <flux:spacer />
+
+            <x-cart.nav-button />
+
+            <flux:dropdown>
+                <flux:button icon="language" variant="ghost" square />
+                <flux:menu class="min-w-[12rem]">
+                    <x-language-switcher flat />
+                </flux:menu>
+            </flux:dropdown>
             
             @auth
                 <x-desktop-user-menu />
@@ -47,12 +59,15 @@
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('client/navigation.navigation')">
                     <flux:sidebar.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
+                        {{ __('client/navigation.home') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="squares-2x2" :href="route('menu')" :current="request()->routeIs('menu')" wire:navigate>
                         {{ __('client/navigation.menu') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="magnifying-glass" href="#" wire:navigate>
+                    <!-- <flux:sidebar.item icon="magnifying-glass" href="#" wire:navigate>
                         {{ __('client/navigation.explore') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="shopping-bag" href="#" wire:navigate>
+                    </flux:sidebar.item> -->
+                    <flux:sidebar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                         {{ __('client/navigation.orders') }}
                     </flux:sidebar.item>
                     <flux:sidebar.item icon="information-circle" href="#" wire:navigate>
@@ -84,7 +99,7 @@
             @endauth
         </flux:sidebar>
 
-        <flux:main container>
+        <flux:main class="mx-auto w-full flex flex-1 flex-col">
             {{ $slot }}
         </flux:main>
 
@@ -93,6 +108,8 @@
                 <flux:toast />
             </flux:toast.group>
         @endpersist
+
+        <x-cart.manager />
 
         @fluxScripts
     </body>

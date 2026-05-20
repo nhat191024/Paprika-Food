@@ -1,0 +1,19 @@
+<?php
+
+return [
+    'title' => 'Thanh toán',
+    'delivery_information' => 'Thông tin giao hàng',
+    'full_name' => 'Họ và tên',
+    'phone_number' => 'Số điện thoại',
+    'delivery_address' => 'Địa chỉ giao hàng',
+    'note' => 'Ghi chú (không bắt buộc)',
+    'payment_method' => 'Phương thức thanh toán',
+    'cash' => 'Thanh toán khi nhận hàng (COD)',
+    'credit_card' => 'Thẻ tín dụng/ghi nợ',
+    'order_summary' => 'Tóm tắt đơn hàng',
+    'order_now' => 'Đặt hàng',
+    'order_created' => 'Đơn hàng :order đã được tạo.',
+    'delivery_time' => 'Thời gian giao',
+    'asap' => 'Giao ngay (ASAP)',
+    'schedule' => 'Lên lịch giao',
+];

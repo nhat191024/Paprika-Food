@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'search_placeholder' => 'Search Product...',
+    'filter_non_spicy' => 'Non-Spicy',
+    'filter_spicy' => 'Spicy',
+    'filter_veggie' => 'Veggie',
+    'cat_offers' => 'OFFERS',
+    'cat_recommended' => 'RECOMMENDED',
+    'cat_burgers' => 'BURGERS',
+    'cat_chicken' => 'CHICKEN',
+    'cat_sides' => 'SIDES',
+    'cat_desserts' => 'DESSERTS',
+    'from' => 'from',
+    'product_double_combo_title' => 'Double Burger Combo',
+    'product_double_combo_desc' => 'Two Burgers, large fries and two soft drinks.',
+    'product_bulgogi_double_title' => "Ria's Bulgogi Double",
+    'product_bulgogi_double_desc' => 'Double patty, lettuce, tomato and bulgogi sauce.',
+    'product_beef_burger_title' => 'Beef Burger',
+    'product_beef_burger_desc' => 'Classic beef patty with fresh ingredients.',
+    'product_veggie_delight_title' => 'Veggie Delight',
+    'product_veggie_delight_desc' => 'Plant-based patty with fresh vegetables and vegan sauce.',
+    'product_shrimp_burger_title' => 'Shrimp Burger',
+    'product_shrimp_burger_desc' => 'Shrimp patty with crispy crust.',
+    'product_zinger_burger_title' => 'Zinger Burger',
+    'product_zinger_burger_desc' => 'Spicy chicken fillet with mayo and lettuce.',
+];

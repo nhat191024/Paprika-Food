@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'search_placeholder' => 'Αναζήτηση Προϊόντος...',
+    'filter_non_spicy' => 'Μη Καυτερά',
+    'filter_spicy' => 'Καυτερά',
+    'filter_veggie' => 'Χορτοφαγικά',
+    'cat_offers' => 'ΠΡΟΣΦΟΡΕΣ',
+    'cat_recommended' => 'ΠΡΟΤΕΙΝΟΜΕΝΑ',
+    'cat_burgers' => 'BURGERS',
+    'cat_chicken' => 'ΚΟΤΟΠΟΥΛΟ',
+    'cat_sides' => 'ΣΥΝΟΔΕΥΤΙΚΑ',
+    'cat_desserts' => 'ΕΠΙΔΟΡΠΙΑ',
+    'from' => 'από',
+    'product_double_combo_title' => 'Double Burger Combo',
+    'product_double_combo_desc' => 'Δύο Burgers, μεγάλες πατάτες και δύο αναψυκτικά.',
+    'product_bulgogi_double_title' => "Ria's Bulgogi Double",
+    'product_bulgogi_double_desc' => 'Διπλό μπιφτέκι, μαρούλι, ντομάτα και σως bulgogi.',
+    'product_beef_burger_title' => 'Beef Burger',
+    'product_beef_burger_desc' => 'Κλασικό μοσχαρίσιο μπιφτέκι με φρέσκα υλικά.',
+    'product_veggie_delight_title' => 'Veggie Delight',
+    'product_veggie_delight_desc' => 'Plant-based μπιφτέκι με φρέσκα λαχανικά και vegan σως.',
+    'product_shrimp_burger_title' => 'Shrimp Burger',
+    'product_shrimp_burger_desc' => 'Μπιφτέκι γαρίδας με τραγανή κρούστα.',
+    'product_zinger_burger_title' => 'Zinger Burger',
+    'product_zinger_burger_desc' => 'Καυτερό φιλέτο κοτόπουλο με μαγιονέζα και μαρούλι.',
+];

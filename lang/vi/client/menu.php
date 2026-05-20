@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'search_placeholder' => 'Tìm kiếm sản phẩm...',
+    'filter_non_spicy' => 'Không cay',
+    'filter_spicy' => 'Cay',
+    'filter_veggie' => 'Chay',
+    'cat_offers' => 'ƯU ĐÃI',
+    'cat_recommended' => 'GỢI Ý',
+    'cat_burgers' => 'BURGERS',
+    'cat_chicken' => 'GÀ',
+    'cat_sides' => 'MÓN PHỤ',
+    'cat_desserts' => 'TRÁNG MIỆNG',
+    'from' => 'từ',
+    'product_double_combo_title' => 'Combo 2 Burger',
+    'product_double_combo_desc' => 'Hai bánh Burger, khoai tây chiên lớn và hai phần nước ngọt.',
+    'product_bulgogi_double_title' => "Ria's Bulgogi Double",
+    'product_bulgogi_double_desc' => 'Nhân đôi bò, xà lách, cà chua và sốt bulgogi.',
+    'product_beef_burger_title' => 'Burger Bò',
+    'product_beef_burger_desc' => 'Nhân bò cổ điển với các nguyên liệu tươi ngon.',
+    'product_veggie_delight_title' => 'Burger Chay',
+    'product_veggie_delight_desc' => 'Nhân thực vật với rau tươi và sốt chay.',
+    'product_shrimp_burger_title' => 'Burger Tôm',
+    'product_shrimp_burger_desc' => 'Nhân tôm với lớp vỏ giòn rụm.',
+    'product_zinger_burger_title' => 'Burger Zinger',
+    'product_zinger_burger_desc' => 'Phi lê gà cay với sốt mayo và xà lách.',
+];
