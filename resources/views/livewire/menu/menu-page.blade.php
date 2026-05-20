@@ -31,7 +31,7 @@
                             @foreach($category->products as $product)
                                 <x-menu.product-card 
                                     :title="$product->name"
-                                    :image="$product->thumbnail->first()?->getUrl()"
+                                    :image="$product->getThumbnailUrl()"
                                     :description="$product->description"
                                     :price="number_format((float) $product->price, 2) . ' €'"
                                     :href="route('product.details', $product->slug)"
