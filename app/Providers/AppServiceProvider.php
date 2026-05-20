@@ -36,9 +36,19 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         File::registerMediaConversionsUsing(function (File $file, ?Media $media = null) {
+            // Override the slimani built-in 'thumb' and 'preview' conversions to
+            // output WebP, which supports alpha transparency. Without this, the
+            // GD driver defaults to JPEG and transparent PNG backgrounds go black.
             $file->addMediaConversion('thumb')
-                ->width(150)
-                ->height(150)
+                ->width(300)
+                ->height(300)
+                ->format('webp')
+                ->optimize()
+                ->queued();
+
+            $file->addMediaConversion('preview')
+                ->width(800)
+                ->height(800)
                 ->format('webp')
                 ->optimize()
                 ->queued();
