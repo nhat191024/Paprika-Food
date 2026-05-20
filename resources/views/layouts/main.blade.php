@@ -4,7 +4,7 @@
         @include('partials.head')
     </head>
     <body class="flex flex-col min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container sticky class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:header container sticky class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900" data-animate="fade-down">
             <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
 
             <div class="max-sm:[&_.flux-brand-name]:hidden max-sm:[&>span]:hidden">
@@ -107,7 +107,7 @@
             @endauth
         </flux:sidebar>
 
-        <flux:main class="mx-auto w-full flex flex-1 flex-col animate-fade-in-up">
+        <flux:main class="mx-auto w-full flex flex-1 flex-col" data-animate="fade-up">
             {{ $slot }}
         </flux:main>
 

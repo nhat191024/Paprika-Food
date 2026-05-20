@@ -3,7 +3,7 @@
         <form method="POST" action="{{ route('checkout.store') }}" class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_24rem] w-full">
             @csrf
 
-            <div class="space-y-6">
+            <div class="space-y-6" data-animate="fade-up">
                 <flux:heading size="xl">{{ __('client/checkout.title') }}</flux:heading>
 
                 <section class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
@@ -216,7 +216,7 @@
                 </section>
             </div>
 
-            <aside class="h-fit rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 lg:sticky lg:top-24">
+            <aside class="h-fit rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 lg:sticky lg:top-24" data-animate="fade-left">
                 <flux:heading size="lg" class="mb-5">{{ __('client/checkout.order_summary') }}</flux:heading>
                 <div class="space-y-4">
                     @foreach($cart['items'] as $item)

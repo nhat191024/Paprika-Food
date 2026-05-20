@@ -107,10 +107,10 @@
             }"
         >
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-                <div class="lg:sticky lg:top-24">
+                <div class="lg:sticky lg:top-24" data-animate="fade-right">
                     @include('details.partials.product-image')
                 </div>
-                <div class="flex flex-col gap-8">
+                <div class="flex flex-col gap-8" data-animate="fade-left">
                     @include('details.partials.product-info')
 
                     @include('details.partials.variants')

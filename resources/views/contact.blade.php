@@ -6,7 +6,7 @@
                 <img src="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-30" alt="Contact Hero">
                 <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/60 to-transparent"></div>
             </div>
-            <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+            <div class="relative z-10 text-center px-4 max-w-3xl mx-auto" data-animate="fade-up">
                 <h1 class="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight uppercase">{{ __('client/home.contact_title') }}</h1>
                 <p class="text-xl md:text-2xl text-zinc-300 font-medium">{{ __('client/home.contact_subtitle') }}</p>
             </div>
@@ -17,13 +17,13 @@
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
                 
                 <!-- Contact Information Cards -->
-                <div class="space-y-8">
+                <div class="space-y-8" data-animate="fade-right">
                     <div class="mb-10">
                         <h2 class="text-sm font-bold text-brand-red uppercase tracking-widest mb-2">{{ __('client/home.contact_get_in_touch') }}</h2>
                         <h3 class="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight">{{ __('client/home.contact_serve_you') }}</h3>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-animate="stagger-children">
                         <div class="bg-zinc-50 dark:bg-zinc-900 p-8 rounded-3xl border border-zinc-100 dark:border-zinc-800 flex flex-col hover:-translate-y-1 transition-transform">
                             <div class="w-12 h-12 bg-white dark:bg-zinc-800 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
                                 <flux:icon.map-pin class="size-6 text-brand-red" />
@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- Visual Map/Form Side -->
-                <div class="bg-zinc-100 dark:bg-zinc-900 rounded-[2.5rem] p-8 md:p-12 flex flex-col justify-center items-center text-center shadow-inner relative overflow-hidden">
+                <div class="bg-zinc-100 dark:bg-zinc-900 rounded-[2.5rem] p-8 md:p-12 flex flex-col justify-center items-center text-center shadow-inner relative overflow-hidden" data-animate="fade-left">
                     <div class="absolute inset-0 opacity-10 dark:opacity-5">
                         <!-- A decorative pattern or map background placeholder -->
                         <svg class="w-full h-full text-zinc-900 dark:text-white" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -88,7 +88,7 @@
 
         <!-- Navigation Prompt -->
         <section class="py-16 bg-brand-red px-6 lg:px-8 border-t border-red-800">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8" data-animate="fade-up">
                 <h3 class="text-3xl font-black text-white uppercase text-center md:text-left">{{ __('client/home.contact_hungry') }}</h3>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="{{ route('menu') }}" wire:navigate class="bg-white text-brand-red font-bold uppercase tracking-wide px-8 py-4 rounded-full shadow-lg hover:bg-red-50 transition-colors">
