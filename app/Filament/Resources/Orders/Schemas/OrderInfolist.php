@@ -30,22 +30,29 @@ class OrderInfolist
                                 TextEntry::make('status')
                                     ->label(__('admin/order.infolist.fields.status'))
                                     ->badge()
-                                    ->formatStateUsing(fn ($state) => __('admin/order.status.' . $state->getValue()))
+                                    ->formatStateUsing(fn ($state) => __('admin/order.status.'.$state->getValue()))
                                     ->color(fn ($state) => $state->color()),
 
                                 TextEntry::make('order_type')
                                     ->label(__('admin/order.infolist.fields.order_type'))
                                     ->badge()
-                                    ->formatStateUsing(fn ($state) => __('admin/order.order_type.' . $state->value))
+                                    ->formatStateUsing(fn ($state) => __('admin/order.order_type.'.$state->value))
                                     ->color(fn ($state) => match ($state) {
                                         OrderType::ONLINE => 'info',
                                         OrderType::DINE_IN => 'warning',
                                     }),
 
+                                TextEntry::make('scheduled_delivery_time')
+                                    ->label(__('admin/order.infolist.fields.scheduled_delivery_time'))
+                                    ->dateTime()
+                                    ->badge()
+                                    ->color('danger')
+                                    ->placeholder(__('admin/order.infolist.fields.asap')),
+
                                 TextEntry::make('payment_method')
                                     ->label(__('admin/order.infolist.fields.payment_method'))
                                     ->badge()
-                                    ->formatStateUsing(fn ($state) => __('admin/order.payment_method.' . $state->value))
+                                    ->formatStateUsing(fn ($state) => __('admin/order.payment_method.'.$state->value))
                                     ->color('gray'),
 
                                 TextEntry::make('created_at')
@@ -58,11 +65,15 @@ class OrderInfolist
                             ->schema([
                                 RepeatableEntry::make('items')
                                     ->hiddenLabel()
-                                    ->columns(4)
+                                    ->columns(5)
                                     ->schema([
                                         TextEntry::make('product.name')
                                             ->label(__('admin/order.infolist.fields.product_name'))
-                                            ->state(fn ($record) => $record->product->getTranslation('name', app()->getLocale())),
+                                            ->state(fn ($record) => $record->product_name ?? $record->product->getTranslation('name', app()->getLocale())),
+
+                                        TextEntry::make('product_variant_name')
+                                            ->label(__('admin/order.infolist.fields.variant'))
+                                            ->placeholder('—'),
 
                                         TextEntry::make('quantity')
                                             ->label(__('admin/order.infolist.fields.quantity')),
@@ -84,7 +95,7 @@ class OrderInfolist
                                             ->schema([
                                                 TextEntry::make('product.name')
                                                     ->label(__('admin/order.infolist.fields.selection_product'))
-                                                    ->state(fn ($record) => $record->product->getTranslation('name', app()->getLocale())),
+                                                    ->state(fn ($record) => $record->selection_name ?? $record->product->getTranslation('name', app()->getLocale())),
 
                                                 TextEntry::make('extra_price')
                                                     ->label(__('admin/order.infolist.fields.extra_price'))
