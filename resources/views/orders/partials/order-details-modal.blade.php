@@ -10,7 +10,7 @@
     $activeIndex = $activeIndex === false ? -1 : $activeIndex;
 @endphp
 
-<flux:modal name="order-details-{{ $order->id }}" class="w-full max-w-2xl">
+<flux:modal name="order-details-{{ $order->id }}" class="w-full max-w-2xl" :closable="false">
     <div class="space-y-6">
         <div class="flex items-start justify-between gap-4 border-b border-zinc-200 pb-4 dark:border-zinc-800">
             <div>

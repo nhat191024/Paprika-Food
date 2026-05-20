@@ -9,10 +9,9 @@
         
         @include('menu.partials.filter-bar')
 
-        <!-- Main Content Wrapper (2-column layout) -->
         <div class="flex flex-col md:flex-row gap-8 py-8 flex-1">
             
-            <aside class="w-full md:w-64 flex-shrink-0">
+            <aside class="w-full md:w-64 flex-shrink-0" data-animate="fade-right">
                 <div class="sticky top-[9.5rem] flex flex-col gap-1">
                     <nav class="flex flex-col gap-1">
                         @foreach($categories as $category)
@@ -26,8 +25,8 @@
             <main class="flex-1 flex flex-col gap-16">
                 @foreach($categories as $category)
                     <section id="cat-{{ $category->slug }}" class="scroll-mt-24">
-                        <flux:heading level="2" size="xl" class="mb-8 font-black">{{ $category->name }}</flux:heading>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <flux:heading level="2" size="xl" class="mb-8 font-black" data-animate="fade-up">{{ $category->name }}</flux:heading>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" data-animate="stagger-children">
                             @foreach($category->products as $product)
                                 <x-menu.product-card 
                                     :title="$product->name"

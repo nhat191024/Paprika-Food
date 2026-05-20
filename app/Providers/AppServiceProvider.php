@@ -3,16 +3,13 @@
 namespace App\Providers;
 
 use App\Enums\FilamentNavigationGroup;
-
 use Carbon\CarbonImmutable;
+use Filament\Facades\Filament;
+use Filament\Navigation\NavigationGroup;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-
-use Filament\Facades\Filament;
-use Filament\Navigation\NavigationGroup;
-
 use Slimani\MediaManager\Models\File;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -32,9 +29,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->enforceStorageDisks();
 
         Filament::registerNavigationGroups([
-            'system'   => NavigationGroup::make(fn() => FilamentNavigationGroup::SYSTEM->getLabel()),
+            'system' => NavigationGroup::make(fn () => FilamentNavigationGroup::SYSTEM->getLabel()),
         ]);
 
         File::registerMediaConversionsUsing(function (File $file, ?Media $media = null) {
@@ -54,6 +52,14 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
+    protected function enforceStorageDisks(): void
+    {
+        config([
+            'filesystems.default' => 'public',
+            'livewire.temporary_file_upload.disk' => 'public',
+        ]);
+    }
+
     /**
      * Configure default behaviors for production-ready applications.
      */
@@ -66,13 +72,13 @@ class AppServiceProvider extends ServiceProvider
         );
 
         Password::defaults(
-            fn(): ?Password => app()->isProduction()
+            fn (): ?Password => app()->isProduction()
                 ? Password::min(12)
-                ->mixedCase()
-                ->letters()
-                ->numbers()
-                ->symbols()
-                ->uncompromised()
+                    ->mixedCase()
+                    ->letters()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
                 : null,
         );
     }

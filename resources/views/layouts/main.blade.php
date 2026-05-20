@@ -4,7 +4,7 @@
         @include('partials.head')
     </head>
     <body class="flex flex-col min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container sticky class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:header container sticky class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900" data-animate="fade-down">
             <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
 
             <div class="max-sm:[&_.flux-brand-name]:hidden max-sm:[&>span]:hidden">
@@ -26,8 +26,11 @@
                 <flux:navbar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                     {{ __('client/navigation.orders') }}
                 </flux:navbar.item>
-                <flux:navbar.item icon="information-circle" :href="route('menu')" wire:navigate>
+                <flux:navbar.item icon="information-circle" :href="route('about')" :current="request()->routeIs('about')" wire:navigate>
                     {{ __('client/navigation.about') }}
+                </flux:navbar.item>
+                <flux:navbar.item icon="phone" :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate>
+                    {{ __('client/navigation.contact') }}
                 </flux:navbar.item>
             </flux:navbar>
             <flux:spacer />
@@ -72,8 +75,11 @@
                     <flux:sidebar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                         {{ __('client/navigation.orders') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="information-circle" :href="route('menu')" wire:navigate>
+                    <flux:sidebar.item icon="information-circle" :href="route('about')" :current="request()->routeIs('about')" wire:navigate>
                         {{ __('client/navigation.about') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="phone" :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate>
+                        {{ __('client/navigation.contact') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
@@ -101,7 +107,7 @@
             @endauth
         </flux:sidebar>
 
-        <flux:main class="mx-auto w-full flex flex-1 flex-col animate-fade-in-up">
+        <flux:main class="mx-auto w-full flex flex-1 flex-col" data-animate="fade-up">
             {{ $slot }}
         </flux:main>
 

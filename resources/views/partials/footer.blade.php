@@ -14,12 +14,12 @@
                 <a class="hover:text-[#f00028] transition-colors font-medium uppercase text-sm" href="{{ route('menu') }}" wire:navigate>{{ __('client/home.footer_menu') }}</a>
                 <a class="hover:text-[#f00028] transition-colors font-medium uppercase text-sm" href="{{ route('menu') }}" wire:navigate>{{ __('client/home.footer_promotions') }}</a>
                 <a class="hover:text-[#f00028] transition-colors font-medium uppercase text-sm" href="{{ route('menu') }}" wire:navigate>{{ __('client/home.footer_locations') }}</a>
-                <a class="hover:text-[#f00028] transition-colors font-medium uppercase text-sm" href="{{ route('menu') }}" wire:navigate>{{ __('client/home.footer_about') }}</a>
+                <a class="hover:text-[#f00028] transition-colors font-medium uppercase text-sm" href="{{ route('about') }}" wire:navigate>{{ __('client/home.footer_about') }}</a>
             </div>
             <div class="flex flex-col gap-3">
                 <a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">{{ __('client/home.footer_privacy') }}</a>
                 <a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">{{ __('client/home.footer_terms') }}</a>
-                <a class="text-gray-400 hover:text-white transition-colors text-sm" href="#">{{ __('client/home.footer_contact') }}</a>
+                <a class="text-gray-400 hover:text-white transition-colors text-sm" href="{{ route('contact') }}" wire:navigate>{{ __('client/home.footer_contact') }}</a>
             </div>
         </div>
         <!-- Social Icons Col -->

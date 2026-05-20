@@ -1,7 +1,7 @@
 @if($relatedProducts->isNotEmpty())
     <section class="mt-20">
-        <flux:heading size="xl" class="mb-8 font-bold text-3xl">{{ __('client/details.you_might_also_like') }}</flux:heading>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <flux:heading size="xl" class="mb-8 font-bold text-3xl" data-animate="fade-up">{{ __('client/details.you_might_also_like') }}</flux:heading>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6" data-animate="stagger-children">
             @foreach($relatedProducts as $relatedProduct)
                 <a href="{{ route('product.details', $relatedProduct->slug) }}" wire:navigate class="bg-white dark:bg-zinc-900 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500 transition-colors group shadow-sm">
                     <div class="aspect-square bg-zinc-50 dark:bg-zinc-800/50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">

@@ -28,7 +28,7 @@
             <a href="{{ $href }}" wire:navigate class="absolute inset-0 flex items-center justify-center" aria-label="{{ $title }}">
                 @if($image)
                     <div class="relative size-full flex items-center justify-center">
-                        <img src="{{ $image }}" alt="{{ $title }}" class="w-4/5 h-4/5 object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <img src="{{ $image }}" alt="{{ $title }}" class="w-4/5 h-4/5 object-contain rounded-[15px] mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="hidden size-full items-center justify-center">
                             <svg class="size-16 text-zinc-300 dark:text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -74,48 +74,18 @@
         @endif
     </p>
     
-    <div class="mt-auto">
-        <div class="flex border-2 border-brand-red rounded-full overflow-hidden shadow-lg shadow-red-500/10">
-            <!-- quickly add to cart btn -->
-            <button
-                type="button"
-                class="px-5 py-3 bg-white dark:bg-zinc-800 text-brand-red hover:bg-red-50 dark:hover:bg-red-950 flex items-center justify-center border-r-2 border-brand-red transition-colors"
-                x-on:click="
-                    @if($canQuickAdd && $productId)
-                        fetch(@js(route('cart.items.store')), {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': @js(csrf_token()),
-                            },
-                            body: JSON.stringify({ product_id: {{ $productId }}, quantity: 1, combo_items: [] }),
-                        })
-                            .then((response) => response.json().then((data) => ({ response, data })))
-                            .then(({ response, data }) => {
-                                if (response.ok) {
-                                    window.dispatchEvent(new CustomEvent('cart-updated', { detail: { cart: data.cart } }));
-                                } else if ({{ $href ? 'true' : 'false' }}) {
-                                    window.location.href = @js($href);
-                                }
-                            });
-                    @elseif($href)
-                        window.location.href = @js($href);
-                    @endif
-                "
-            >
-                <flux:icon name="shopping-cart" class="size-6" />
-            </button>
-            <!-- go to details button -->
-            @if($href)
-                <a href="{{ $href }}" wire:navigate class="flex-1 px-5 py-3 bg-brand-red text-white font-black text-lg text-center hover:bg-red-700 transition-colors">
-                    {{ $price }}
-                </a>
-            @else
-                <button class="flex-1 px-5 py-3 bg-brand-red text-white font-black text-lg hover:bg-red-700 transition-colors">
-                    {{ $price }}
-                </button>
-            @endif
+        <div class="mt-auto">
+            <div class="flex border-2 border-brand-red rounded-full overflow-hidden shadow-lg shadow-red-500/10">
+                <!-- go to details button -->
+                @if($href)
+                    <a href="{{ $href }}" wire:navigate class="w-full min-w-0 px-4 py-2 sm:px-5 sm:py-3 bg-brand-red text-white font-black text-base sm:text-lg leading-tight text-center break-words hover:bg-red-700 transition-colors flex items-center justify-center">
+                        {{ $price }}
+                    </a>
+                @else
+                    <button class="w-full min-w-0 px-4 py-2 sm:px-5 sm:py-3 bg-brand-red text-white font-black text-base sm:text-lg leading-tight break-words hover:bg-red-700 transition-colors flex items-center justify-center text-center">
+                        {{ $price }}
+                    </button>
+                @endif
+            </div>
         </div>
-    </div>
 </div>

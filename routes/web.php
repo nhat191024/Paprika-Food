@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/menu', MenuPage::class)->name('menu');
-
+Route::view('/about', 'about')->name('about');
+Route::view('/contact', 'contact')->name('contact');
 Route::post('locale', LocaleController::class)->name('locale.update');
 
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
