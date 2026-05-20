@@ -1,0 +1,103 @@
+@props(['image' => null, 'title', 'description', 'price', 'href' => null, 'productId' => null, 'canQuickAdd' => false, 'spicy' => false, 'veggie' => false])
+
+<div x-data="{ title: @js(strtolower((string) $title)), description: @js(strtolower((string) $description)) }"
+     x-show="(search === '' || title.includes(search.toLowerCase()) || description.includes(search.toLowerCase())) && 
+             (activeFilter === 'all' || 
+             (activeFilter === 'spicy' && {{ $spicy ? 'true' : 'false' }}) || 
+             (activeFilter === 'non-spicy' && {{ ! $spicy ? 'true' : 'false' }}) ||
+             (activeFilter === 'veggie' && {{ $veggie ? 'true' : 'false' }}))"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 scale-95"
+     x-transition:enter-end="opacity-100 scale-100"
+     class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-100 dark:border-zinc-800 p-5 flex flex-col relative group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    
+    @if($spicy)
+        <div class="absolute top-6 right-6 z-10 w-10 h-10 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm rounded-full shadow-sm flex items-center justify-center">
+            <flux:icon name="fire" class="text-brand-red size-5" variant="solid" />
+        </div>
+    @endif
+
+    @if($veggie)
+        <div class="absolute top-6 right-6 z-10 w-10 h-10 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm rounded-full shadow-sm flex items-center justify-center">
+            <flux:icon name="leaf" class="text-green-600 size-5" />
+        </div>
+    @endif
+    
+    <div class="w-full aspect-square bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl mb-5 relative flex items-center justify-center overflow-hidden">
+        @if($href)
+            <a href="{{ $href }}" wire:navigate class="absolute inset-0 flex items-center justify-center" aria-label="{{ $title }}">
+                @if($image)
+                    <img src="{{ $image }}" alt="{{ $title }}" class="w-4/5 h-4/5 object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500">
+                @else
+                    <flux:icon name="utensils" class="text-zinc-300 dark:text-zinc-700 size-16" />
+                @endif
+            </a>
+        @elseif($image)
+            <img src="{{ $image }}" alt="{{ $title }}" class="w-4/5 h-4/5 object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500">
+        @else
+            <div class="w-full h-full animate-pulse flex items-center justify-center">
+                <flux:icon name="utensils" class="text-zinc-300 dark:text-zinc-700 size-16" />
+            </div>
+        @endif
+    </div>
+    
+    <h3 class="font-bold text-xl leading-tight mb-2">
+        @if($href)
+            <a href="{{ $href }}" wire:navigate class="hover:text-brand-red transition-colors">{{ $title }}</a>
+        @else
+            {{ $title }}
+        @endif
+    </h3>
+    <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6 line-clamp-2">
+        @if($href)
+            <a href="{{ $href }}" wire:navigate class="hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors">{{ $description }}</a>
+        @else
+            {{ $description }}
+        @endif
+    </p>
+    
+    <div class="mt-auto">
+        <div class="flex border-2 border-brand-red rounded-full overflow-hidden shadow-lg shadow-red-500/10">
+            <!-- quickly add to cart btn -->
+            <button
+                type="button"
+                class="px-5 py-3 bg-white dark:bg-zinc-800 text-brand-red hover:bg-red-50 dark:hover:bg-red-950 flex items-center justify-center border-r-2 border-brand-red transition-colors"
+                x-on:click="
+                    @if($canQuickAdd && $productId)
+                        fetch(@js(route('cart.items.store')), {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': @js(csrf_token()),
+                            },
+                            body: JSON.stringify({ product_id: {{ $productId }}, quantity: 1, combo_items: [] }),
+                        })
+                            .then((response) => response.json().then((data) => ({ response, data })))
+                            .then(({ response, data }) => {
+                                if (response.ok) {
+                                    window.dispatchEvent(new CustomEvent('cart-updated', { detail: { cart: data.cart } }));
+                                } else if ({{ $href ? 'true' : 'false' }}) {
+                                    window.location.href = @js($href);
+                                }
+                            });
+                    @elseif($href)
+                        window.location.href = @js($href);
+                    @endif
+                "
+            >
+                <flux:icon name="shopping-cart" class="size-6" />
+            </button>
+            <!-- go to details button -->
+            @if($href)
+                <a href="{{ $href }}" wire:navigate class="flex-1 px-5 py-3 bg-brand-red text-white font-black text-lg text-center hover:bg-red-700 transition-colors">
+                    {{ $price }}
+                </a>
+            @else
+                <button class="flex-1 px-5 py-3 bg-brand-red text-white font-black text-lg hover:bg-red-700 transition-colors">
+                    {{ $price }}
+                </button>
+            @endif
+        </div>
+    </div>
+</div>
