@@ -24,7 +24,7 @@
                 <flux:navbar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                     {{ __('client/navigation.orders') }}
                 </flux:navbar.item>
-                <flux:navbar.item icon="information-circle" href="#" wire:navigate>
+                <flux:navbar.item icon="information-circle" :href="route('menu')" wire:navigate>
                     {{ __('client/navigation.about') }}
                 </flux:navbar.item>
             </flux:navbar>
@@ -70,7 +70,7 @@
                     <flux:sidebar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                         {{ __('client/navigation.orders') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="information-circle" href="#" wire:navigate>
+                    <flux:sidebar.item icon="information-circle" :href="route('menu')" wire:navigate>
                         {{ __('client/navigation.about') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
@@ -99,7 +99,7 @@
             @endauth
         </flux:sidebar>
 
-        <flux:main class="mx-auto w-full flex flex-1 flex-col">
+        <flux:main class="mx-auto w-full flex flex-1 flex-col animate-fade-in-up">
             {{ $slot }}
         </flux:main>
 

@@ -17,9 +17,9 @@
                 </p>
             </div>
             <div class="mt-6">
-                <flux:button size="base" class="!border-none !bg-[#f00028] !font-bold !tracking-wide !text-white !shadow-md hover:!bg-red-700 !uppercase px-8 py-4">
+                <a href="{{ route('menu') }}" wire:navigate class="inline-flex items-center justify-center border-none bg-[#f00028] font-bold tracking-wide text-white shadow-md hover:bg-red-700 uppercase px-8 py-4 rounded-xl transition-colors">
                     {{ __('client/home.store_button') }}
-                </flux:button>
+                </a>
             </div>
         </div>
     </div>

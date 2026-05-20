@@ -6,9 +6,12 @@ use App\Actions\Cart\CartManager;
 use App\Enums\OrderType;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
+use App\Models\Voucher;
 use App\States\Order\Pending;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -27,6 +30,32 @@ class CheckoutController extends Controller
         ]);
     }
 
+    public function applyVoucher(Request $request, CartManager $cart): JsonResponse
+    {
+        $request->validate(['code' => 'required|string']);
+
+        $cart->applyVoucher($request->string('code'));
+
+        // Call summary to trigger validation
+        $summary = $cart->summary();
+
+        if ($summary['voucher_code'] === $request->string('code')->toString()) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => __('client/checkout.invalid_voucher') ?? 'Invalid or expired voucher code.',
+        ]);
+    }
+
+    public function removeVoucher(CartManager $cart): JsonResponse
+    {
+        $cart->removeVoucher();
+
+        return response()->json(['success' => true]);
+    }
+
     public function store(CheckoutRequest $request, CartManager $cart): RedirectResponse
     {
         $summary = $cart->summary();
@@ -40,8 +69,10 @@ class CheckoutController extends Controller
                 'user_id' => $request->user()?->id,
                 'order_number' => $this->generateOrderNumber(),
                 'total_amount' => $summary['subtotal'],
-                'discount_amount' => 0,
+                'discount_amount' => $summary['discount'] ?? 0,
                 'final_amount' => $summary['total'],
+                'voucher_id' => $summary['voucher_id'] ?? null,
+                'voucher_code' => $summary['voucher_code'] ?? null,
                 'status' => Pending::class,
                 'payment_method' => (string) $request->string('payment_method'),
                 'order_type' => OrderType::ONLINE,
@@ -72,6 +103,10 @@ class CheckoutController extends Controller
                         'extra_price' => $selection['extra_price'],
                     ]);
                 }
+            }
+
+            if (! empty($summary['voucher_id'])) {
+                Voucher::query()->where('id', $summary['voucher_id'])->increment('used_count');
             }
 
             $cart->rememberOrder($order->id);
