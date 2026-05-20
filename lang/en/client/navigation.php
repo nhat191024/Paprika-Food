@@ -7,4 +7,5 @@ return [
     'orders' => 'Orders',
     'navigation' => 'Navigation',
     'about' => 'About',
+    'contact' => 'Contact',
 ];

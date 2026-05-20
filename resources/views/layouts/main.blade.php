@@ -26,8 +26,11 @@
                 <flux:navbar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                     {{ __('client/navigation.orders') }}
                 </flux:navbar.item>
-                <flux:navbar.item icon="information-circle" :href="route('menu')" wire:navigate>
+                <flux:navbar.item icon="information-circle" :href="route('about')" :current="request()->routeIs('about')" wire:navigate>
                     {{ __('client/navigation.about') }}
+                </flux:navbar.item>
+                <flux:navbar.item icon="phone" :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate>
+                    {{ __('client/navigation.contact') }}
                 </flux:navbar.item>
             </flux:navbar>
             <flux:spacer />
@@ -72,8 +75,11 @@
                     <flux:sidebar.item icon="shopping-bag" :href="route('orders.index')" :current="request()->routeIs('orders.index')" wire:navigate>
                         {{ __('client/navigation.orders') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="information-circle" :href="route('menu')" wire:navigate>
+                    <flux:sidebar.item icon="information-circle" :href="route('about')" :current="request()->routeIs('about')" wire:navigate>
                         {{ __('client/navigation.about') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="phone" :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate>
+                        {{ __('client/navigation.contact') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>

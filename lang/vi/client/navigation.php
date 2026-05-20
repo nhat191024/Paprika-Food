@@ -7,4 +7,5 @@ return [
     'orders' => 'Đơn hàng',
     'navigation' => 'Điều hướng',
     'about' => 'Giới thiệu',
+    'contact' => 'Liên hệ',
 ];
