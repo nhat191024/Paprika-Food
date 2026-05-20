@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('delivery_recipient_name')->nullable();
             $table->string('delivery_phone')->nullable();
             $table->text('delivery_address_detail')->nullable();
-            $table->dateTime('scheduled_delivery_time')->nullable()->after('delivery_address_detail');
+            $table->dateTime('scheduled_delivery_time')->nullable();
             $table->timestamps();
         });
     }

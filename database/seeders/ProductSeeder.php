@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
+use Slimani\MediaManager\Models\File as MediaFile;
 
 class ProductSeeder extends Seeder
 {
@@ -16,6 +17,23 @@ class ProductSeeder extends Seeder
     {
         $demoImage = public_path('images/demo.jpg');
         $hasImage = File::exists($demoImage);
+
+        /** @var MediaFile|null $demoFile */
+        $demoFile = null;
+        if ($hasImage) {
+            $demoFile = MediaFile::firstOrCreate(
+                ['name' => 'demo'],
+                [
+                    'size'      => filesize($demoImage),
+                    'extension' => 'jpg',
+                    'mime_type' => 'image/jpeg',
+                ]
+            );
+
+            if ($demoFile->wasRecentlyCreated) {
+                $demoFile->addMedia($demoImage)->preservingOriginal()->toMediaCollection();
+            }
+        }
 
         $rices = Category::query()->where('slug', 'rice')->first()
             ?? Category::query()->where('slug', 'main-course')->first();
@@ -44,8 +62,8 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            if ($hasImage && $product->wasRecentlyCreated && $product->getMedia('thumbnail')->isEmpty()) {
-                $product->addMedia($demoImage)->preservingOriginal()->toMediaCollection('thumbnail');
+            if ($demoFile && $product->wasRecentlyCreated && $product->thumbnail()->doesntExist()) {
+                $product->mediaFiles()->attach($demoFile->id, ['collection' => 'thumbnail', 'sort_order' => 0]);
             }
         }
 
@@ -87,8 +105,8 @@ class ProductSeeder extends Seeder
             ]
         );
 
-        if ($hasImage && $setGa->wasRecentlyCreated && $setGa->getMedia('thumbnail')->isEmpty()) {
-            $setGa->addMedia($demoImage)->preservingOriginal()->toMediaCollection('thumbnail');
+        if ($demoFile && $setGa->wasRecentlyCreated && $setGa->thumbnail()->doesntExist()) {
+            $setGa->mediaFiles()->attach($demoFile->id, ['collection' => 'thumbnail', 'sort_order' => 0]);
         }
 
         if ($setGa->comboGroups()->doesntExist()) {
