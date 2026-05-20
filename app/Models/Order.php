@@ -6,9 +6,12 @@ use App\Enums\OrderType;
 use App\Enums\PaymentMethods;
 use App\States\Order\OrderState;
 
+use Carbon\CarbonImmutable;
 use Database\Factories\OrderFactory;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -66,7 +69,7 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereVoucherId($value)
  * @mixin \Eloquent
  */
-#[Fillable(['user_id', 'order_number', 'total_amount', 'discount_amount', 'final_amount', 'voucher_id', 'voucher_code', 'status', 'payment_method', 'order_type', 'customer_address_id', 'delivery_recipient_name', 'delivery_phone', 'delivery_address_detail'])]
+#[Fillable(['user_id', 'order_number', 'total_amount', 'discount_amount', 'final_amount', 'voucher_id', 'voucher_code', 'status', 'payment_method', 'order_type', 'customer_address_id', 'delivery_recipient_name', 'delivery_phone', 'delivery_address_detail', 'scheduled_delivery_time'])]
 class Order extends Model
 {
     /** @use HasFactory<OrderFactory> */
@@ -81,6 +84,7 @@ class Order extends Model
             'order_type' => OrderType::class,
             'status' => OrderState::class,
             'payment_method' => PaymentMethods::class,
+            'scheduled_delivery_time' => 'datetime',
         ];
     }
 

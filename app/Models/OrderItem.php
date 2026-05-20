@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\CarbonImmutable;
+
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property int $order_id
  * @property int $product_id
+ * @property int|null $product_variant_id
+ * @property string|null $product_name
+ * @property string|null $product_variant_name
  * @property int $quantity
  * @property numeric $price
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -31,7 +37,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-#[Fillable(['order_id', 'product_id', 'quantity', 'price'])]
+#[Fillable(['order_id', 'product_id', 'product_variant_id', 'product_name', 'product_variant_name', 'quantity', 'price'])]
 class OrderItem extends Model
 {
     protected function casts(): array
@@ -49,6 +55,11 @@ class OrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function variant(): BelongsTo
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 
     public function selections(): HasMany
