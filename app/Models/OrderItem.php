@@ -19,12 +19,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $product_variant_name
  * @property int $quantity
  * @property numeric $price
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read \App\Models\Order $order
  * @property-read \App\Models\Product $product
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItemSelection> $selections
+ * @property-read Collection<int, \App\Models\OrderItemSelection> $selections
  * @property-read int|null $selections_count
+ * @property-read \App\Models\ProductVariant|null $variant
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem query()
@@ -33,6 +34,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereOrderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductVariantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductVariantName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereUpdatedAt($value)
  * @mixin \Eloquent

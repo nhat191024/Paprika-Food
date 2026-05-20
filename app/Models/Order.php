@@ -34,11 +34,12 @@ use Spatie\ModelStates\HasStates;
  * @property string|null $delivery_recipient_name
  * @property string|null $delivery_phone
  * @property string|null $delivery_address_detail
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $scheduled_delivery_time
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read \App\Models\Customer|null $customer
  * @property-read \App\Models\CustomerAddress|null $customerAddress
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderItem> $items
+ * @property-read Collection<int, \App\Models\OrderItem> $items
  * @property-read int|null $items_count
  * @property-read \App\Models\Voucher|null $voucher
  * @method static \Database\Factories\OrderFactory factory($count = null, $state = [])
@@ -59,6 +60,7 @@ use Spatie\ModelStates\HasStates;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereOrderNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereOrderType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereScheduledDeliveryTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereState(string $column, $states)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTotalAmount($value)

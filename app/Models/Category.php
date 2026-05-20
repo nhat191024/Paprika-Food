@@ -20,14 +20,14 @@ use Spatie\Translatable\HasTranslations;
  * @property string $slug
  * @property int|null $parent_id
  * @property int $order
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Category> $children
+ * @property CarbonImmutable|null $deleted_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Category> $children
  * @property-read int|null $children_count
  * @property-read array $translatable_columns_from
  * @property-read Category|null $parent
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
  * @property-read mixed $translations
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newModelQuery()

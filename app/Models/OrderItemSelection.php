@@ -18,18 +18,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $combo_group_name
  * @property string|null $selection_name
  * @property numeric $extra_price
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read \App\Models\ComboGroup|null $comboGroup
+ * @property-read \App\Models\ComboGroupItem|null $comboGroupItem
  * @property-read \App\Models\OrderItem $orderItem
  * @property-read \App\Models\Product $product
+ * @property-read \App\Models\ProductVariant|null $variant
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereComboGroupId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereComboGroupItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereComboGroupName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereExtraPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereOrderItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereProductVariantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereSelectionName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItemSelection whereUpdatedAt($value)
  * @mixin \Eloquent
  */

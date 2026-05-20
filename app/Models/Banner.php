@@ -18,10 +18,10 @@ use Slimani\MediaManager\Models\MediaAttachment;
  * @property bool $status
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, File> $image
+ * @property-read int|null $image_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, MediaAttachment> $mediaAttachments
  * @property-read int|null $media_attachments_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, File> $thumbnail
- * @property-read int|null $thumbnail_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Banner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Banner newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Banner query()

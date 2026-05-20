@@ -20,10 +20,10 @@ use Spatie\Translatable\HasTranslations;
  * @property int $min_select
  * @property int $max_select
  * @property bool $is_required
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
  * @property-read array $translatable_columns_from
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ComboGroupItem> $items
+ * @property-read Collection<int, \App\Models\ComboGroupItem> $items
  * @property-read int|null $items_count
  * @property-read \App\Models\Product $product
  * @property-read mixed $translations
