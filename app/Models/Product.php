@@ -100,4 +100,28 @@ class Product extends Model
     {
         return $this->mediaFiles('thumbnail');
     }
+
+    /**
+     * Get the URL for the first thumbnail image.
+     *
+     * Attempts to use the named Spatie conversion (e.g. 'preview' or 'thumb').
+     * If the conversion has not been generated, falls back to the original file URL.
+     * Returns null when no thumbnail is attached.
+     */
+    public function getThumbnailUrl(string $conversion = 'preview'): ?string
+    {
+        $file = $this->thumbnail->first();
+
+        if (! $file) {
+            return null;
+        }
+
+        $url = $file->getUrl($conversion);
+
+        if (! $url) {
+            $url = $file->getUrl();
+        }
+
+        return $url ?: null;
+    }
 }

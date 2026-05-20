@@ -1,6 +1,6 @@
 <x-layouts::main title="{{ __('client/checkout.title') }}">
-    <div class="-mx-6 -mt-6 flex-1 bg-zinc-50 px-6 py-12 dark:bg-zinc-950 lg:-mx-8 lg:-mt-8 lg:px-8">
-        <form method="POST" action="{{ route('checkout.store') }}" class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_24rem]">
+    <div class="flex-1 bg-zinc-50 py-8 sm:px-6 sm:py-12 dark:bg-zinc-950 lg:px-8 w-full max-w-full overflow-x-hidden rounded-xl">
+        <form method="POST" action="{{ route('checkout.store') }}" class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_24rem] w-full">
             @csrf
 
             <div class="space-y-6">
@@ -162,12 +162,12 @@
                                 
                                 <div class="space-y-2">
                                     <flux:label size="sm">{{ __('client/checkout.select_date') }}</flux:label>
-                                    <div class="flex gap-2 overflow-x-auto pb-2" style="scrollbar-width: none; -ms-overflow-style: none;">
+                                    <div class="flex flex-wrap gap-2 pb-2">
                                         <template x-for="day in days" :key="day.value">
                                             <button type="button" 
                                                     @click="selectedDay = day.value"
                                                     :class="selectedDay === day.value ? 'bg-brand-red text-white border-transparent' : 'bg-white hover:bg-zinc-50 text-zinc-800 border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border-zinc-700 dark:text-zinc-200'"
-                                                    class="shrink-0 rounded-xl border px-4 py-2 text-xs font-bold transition-all shadow-xs">
+                                                    class="rounded-xl border px-4 py-2 text-xs font-bold transition-all shadow-xs">
                                                 <span x-text="day.label"></span>
                                             </button>
                                         </template>
@@ -178,7 +178,7 @@
                                     <flux:label size="sm">{{ __('client/checkout.select_time') }}</flux:label>
                                     
                                     <template x-if="timeSlots.length > 0">
-                                        <div class="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto pr-1">
+                                        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-40 overflow-y-auto pr-1">
                                             <template x-for="slot in timeSlots" :key="slot.value">
                                                 <button type="button"
                                                         @click="selectedTime = slot.value"
@@ -204,12 +204,12 @@
                     <flux:heading size="lg" class="mb-5">{{ __('client/checkout.payment_method') }}</flux:heading>
                     <div class="space-y-3">
                         <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
-                            <input type="radio" name="payment_method" value="cash" class="text-brand-red" @checked(old('payment_method', 'cash') === 'cash')>
-                            <span class="font-semibold">{{ __('client/checkout.cash') }}</span>
+                            <input type="radio" name="payment_method" value="cash" class="shrink-0 text-brand-red" @checked(old('payment_method', 'cash') === 'cash')>
+                            <span class="font-semibold flex-1 leading-snug">{{ __('client/checkout.cash') }}</span>
                         </label>
                         <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-zinc-200 p-4 dark:border-zinc-800">
-                            <input type="radio" name="payment_method" value="credit_card" class="text-brand-red" @checked(old('payment_method') === 'credit_card')>
-                            <span class="font-semibold">{{ __('client/checkout.credit_card') }}</span>
+                            <input type="radio" name="payment_method" value="credit_card" class="shrink-0 text-brand-red" @checked(old('payment_method') === 'credit_card')>
+                            <span class="font-semibold flex-1 leading-snug">{{ __('client/checkout.credit_card') }}</span>
                         </label>
                     </div>
                     <flux:error name="payment_method" />

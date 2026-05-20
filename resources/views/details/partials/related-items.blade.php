@@ -5,8 +5,8 @@
             @foreach($relatedProducts as $relatedProduct)
                 <a href="{{ route('product.details', $relatedProduct->slug) }}" wire:navigate class="bg-white dark:bg-zinc-900 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500 transition-colors group shadow-sm">
                     <div class="aspect-square bg-zinc-50 dark:bg-zinc-800/50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                        @if($relatedProduct->thumbnail->isNotEmpty())
-                            <img alt="{{ $relatedProduct->name }}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" src="{{ $relatedProduct->thumbnail->first()->getUrl() }}">
+                        @if($relatedProduct->getThumbnailUrl())
+                            <img alt="{{ $relatedProduct->name }}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" src="{{ $relatedProduct->getThumbnailUrl() }}">
                         @else
                             <flux:icon name="utensils" class="text-zinc-300 dark:text-zinc-700 size-12" />
                         @endif
