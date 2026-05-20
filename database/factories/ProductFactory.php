@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Enums\ProductStatus;
 use App\Models\Category;
 use App\Models\Product;
+use App\States\Product\Active;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             'description' => ['en' => $enDesc, 'el' => $elDesc],
             'price' => fake()->randomFloat(2, 20000, 200000),
             'is_combo' => false,
-            'status' => ProductStatus::ACTIVE,
+            'status' => Active::$name,
         ];
     }
 
