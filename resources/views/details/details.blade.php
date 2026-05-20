@@ -107,7 +107,7 @@
             }"
         >
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-                <div class="sticky top-24">
+                <div class="lg:sticky lg:top-24">
                     @include('details.partials.product-image')
                 </div>
                 <div class="flex flex-col gap-8">

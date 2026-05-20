@@ -6,7 +6,9 @@ use App\Models\ComboGroup;
 use App\Models\ComboGroupItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Voucher;
 use App\States\Product\Active;
+use App\States\Voucher\Active as VoucherActive;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
@@ -16,6 +18,8 @@ class CartManager
     private const SESSION_KEY = 'cart.items';
 
     private const SESSION_ORDER_IDS_KEY = 'cart.order_ids';
+
+    private const SESSION_VOUCHER_KEY = 'cart.voucher';
 
     /**
      * @param  array<int|string>  $comboItemIds
@@ -80,6 +84,17 @@ class CartManager
     public function clear(): void
     {
         session()->forget(self::SESSION_KEY);
+        session()->forget(self::SESSION_VOUCHER_KEY);
+    }
+
+    public function applyVoucher(string $code): void
+    {
+        session()->put(self::SESSION_VOUCHER_KEY, $code);
+    }
+
+    public function removeVoucher(): void
+    {
+        session()->forget(self::SESSION_VOUCHER_KEY);
     }
 
     /**
@@ -88,13 +103,88 @@ class CartManager
     public function summary(): array
     {
         $items = array_values($this->items());
+
+        $locale = app()->getLocale();
+        $fallback = config('app.fallback_locale', 'en');
+
+        $items = array_map(function (array $item) use ($locale, $fallback) {
+            if (isset($item['name_translations'])) {
+                $item['name'] = $item['name_translations'][$locale]
+                    ?? $item['name_translations'][$fallback]
+                    ?? collect($item['name_translations'])->first()
+                    ?? $item['name'];
+            }
+            if (isset($item['variant_name_translations']) && $item['variant_name_translations']) {
+                $item['variant_name'] = $item['variant_name_translations'][$locale]
+                    ?? $item['variant_name_translations'][$fallback]
+                    ?? collect($item['variant_name_translations'])->first()
+                    ?? $item['variant_name'];
+            }
+
+            if (isset($item['combo_selections'])) {
+                foreach ($item['combo_selections'] as &$selection) {
+                    if (isset($selection['combo_group_name_translations'])) {
+                        $selection['combo_group_name'] = $selection['combo_group_name_translations'][$locale]
+                            ?? $selection['combo_group_name_translations'][$fallback]
+                            ?? collect($selection['combo_group_name_translations'])->first()
+                            ?? $selection['combo_group_name'];
+                    }
+                    if (isset($selection['label_translations'])) {
+                        $selection['label'] = $selection['label_translations'][$locale]
+                            ?? $selection['label_translations'][$fallback]
+                            ?? collect($selection['label_translations'])->first()
+                            ?? $selection['label'];
+                    }
+                }
+            }
+
+            return $item;
+        }, $items);
+
         $subtotal = collect($items)->sum(fn (array $item): float => (float) $item['subtotal']);
+
+        $discountAmount = 0.0;
+        $voucherCode = null;
+        $voucherId = null;
+
+        $code = session()->get(self::SESSION_VOUCHER_KEY);
+        if ($code && $subtotal > 0) {
+            $voucher = Voucher::query()->where('code', $code)->first();
+
+            if ($voucher &&
+                $voucher->status instanceof VoucherActive &&
+                $voucher->start_date->startOfDay() <= now() &&
+                $voucher->end_date->endOfDay() >= now() &&
+                $subtotal >= (float) $voucher->min_order_amount &&
+                ($voucher->is_unlimited || $voucher->used_count < $voucher->usage_limit)
+            ) {
+                if ($voucher->discount_type === 'percentage') {
+                    $discountAmount = $subtotal * ((float) $voucher->discount_value / 100);
+                } else {
+                    $discountAmount = (float) $voucher->discount_value;
+                }
+
+                if ($voucher->max_discount && $voucher->max_discount > 0) {
+                    $discountAmount = min($discountAmount, (float) $voucher->max_discount);
+                }
+
+                $discountAmount = min($discountAmount, $subtotal); // Cannot discount more than subtotal
+                $voucherCode = $voucher->code;
+                $voucherId = $voucher->id;
+            } else {
+                // Invalid voucher, remove it quietly
+                $this->removeVoucher();
+            }
+        }
 
         return [
             'items' => $items,
             'count' => collect($items)->sum(fn (array $item): int => (int) $item['quantity']),
             'subtotal' => $this->money($subtotal),
-            'total' => $this->money($subtotal),
+            'discount' => $this->money($discountAmount),
+            'total' => $this->money(max(0, $subtotal - $discountAmount)),
+            'voucher_code' => $voucherCode,
+            'voucher_id' => $voucherId,
             'is_empty' => $items === [],
         ];
     }
@@ -252,13 +342,27 @@ class CartManager
                 $selectionProduct = $item->product ?? $item->variant?->product;
                 $selectionName = $item->product?->name ?? trim(($item->variant?->product?->name ?? '').' '.$item->variant?->name);
 
+                $labelTranslations = [];
+                if ($item->product) {
+                    $labelTranslations = $item->product->getTranslations('name');
+                } elseif ($item->variant) {
+                    $productTranslations = $item->variant->product->getTranslations('name');
+                    $variantTranslations = $item->variant->getTranslations('name');
+                    $locales = array_unique(array_merge(array_keys($productTranslations), array_keys($variantTranslations)));
+                    foreach ($locales as $loc) {
+                        $labelTranslations[$loc] = trim(($productTranslations[$loc] ?? '').' '.($variantTranslations[$loc] ?? ''));
+                    }
+                }
+
                 return [
                     'combo_group_id' => $item->combo_group_id,
                     'combo_group_item_id' => $item->id,
                     'combo_group_name' => $item->comboGroup->name,
+                    'combo_group_name_translations' => $item->comboGroup->getTranslations('name'),
                     'product_id' => $selectionProduct?->id,
                     'product_variant_id' => $item->product_variant_id,
                     'label' => $selectionName,
+                    'label_translations' => $labelTranslations,
                     'extra_price' => $this->money($item->extra_price),
                 ];
             })
@@ -280,7 +384,9 @@ class CartManager
             'product_id' => $product->id,
             'product_variant_id' => $variant?->id,
             'name' => $product->name,
+            'name_translations' => $product->getTranslations('name'),
             'variant_name' => $variant?->name,
+            'variant_name_translations' => $variant ? $variant->getTranslations('name') : null,
             'image' => $product->thumbnail->first()?->getUrl(),
             'quantity' => $quantity,
             'unit_price' => $this->money($unitPrice),

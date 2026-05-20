@@ -21,6 +21,8 @@ Route::patch('cart/items/{key}', [CartController::class, 'update'])->name('cart.
 Route::delete('cart/items/{key}', [CartController::class, 'destroy'])->name('cart.items.destroy');
 Route::get('checkout', [CheckoutController::class, 'show'])->name('checkout.show');
 Route::post('checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('checkout/voucher/apply', [CheckoutController::class, 'applyVoucher'])->name('checkout.voucher.apply');
+Route::post('checkout/voucher/remove', [CheckoutController::class, 'removeVoucher'])->name('checkout.voucher.remove');
 Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
